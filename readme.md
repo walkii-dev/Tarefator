@@ -7,3 +7,4 @@ próximos passos do projeto:
 - construir endpoints de controller
 - adicionar logs
 - criar conexão com bancos de dados (SQL)
+-  e muito mais;
