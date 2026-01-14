@@ -8,6 +8,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import com.example.Tarefator.dtos.TaskDTO;
 
+import java.util.List;
+import java.util.UUID;
+
 @Service
 public class TaskService {
 
@@ -26,5 +29,28 @@ public class TaskService {
         var convertedTask = mapper.toTaskEntity(taskData);
         repository.save(convertedTask);
         return convertedTask;
+    }
+
+    public Task getSimpleTask(UUID id){
+        logger.info("finding a unique task saved on database.");
+        var findTask = repository.getReferenceById(id);
+        return findTask;
+    }
+
+    public List<Task> getAllTasks() {
+        logger.info("finding for all tasks saved in database.");
+        var tasksList = repository.findAll();
+        return tasksList;
+    }
+
+    public Task editTask(TaskDTO editedTask) {
+        var taskToEdit = repository.getReferenceById(editedTask.id());
+        repository.save(taskToEdit);
+        return taskToEdit;
+    }
+
+    public void deleteTask(UUID id) {
+        var findTask = repository.getReferenceById(id);
+        repository.delete(findTask);
     }
 }

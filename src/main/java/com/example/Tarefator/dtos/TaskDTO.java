@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 public record TaskDTO(UUID id,
-        @NotBlank(message = "have be a title on new tasks.")
+                      @NotBlank(message = "have be a title on new tasks.")
                       String title,
                       @NotNull
                       String description,
