@@ -5,19 +5,23 @@ import jakarta.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
+import java.util.UUID;
 
 @Entity
 @Table(name="tasks")
 public class Task implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private UUID id;
 
     @Column(nullable = false)
     private String title;
+
     private String description;
+
     @Column(nullable = false)
     private LocalDateTime startTime;
+
     @Column(nullable = false)
     private LocalDateTime endTime;
 
@@ -31,11 +35,11 @@ public class Task implements Serializable {
         //empty constructor.
     }
 
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
