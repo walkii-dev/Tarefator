@@ -2,10 +2,11 @@ spring:
   application:
     name: Tarefator
   datasource:
-      url: jdbc:h2:mem:testdb
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/tarefator_db?useTimezone=true&serverTimezone=UTC
       username: root
       password: 3158
-  h2:
-    console:
-      enabled: true
-      path: /h2-console
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
