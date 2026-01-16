@@ -9,6 +9,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import com.example.Tarefator.dtos.TaskDTO;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -23,20 +27,23 @@ public class TaskService {
         this.mapper = mapper;
     }
 
+
     Logger logger = LoggerFactory.getLogger(TaskService.class.getName());
 
     public Task createTask (TaskDTO taskData){
         logger.info("mapping dto to entity and saving in database.");
-        var convertedTask = mapper.toTaskEntity(taskData);
 
         try{
-            validateTaskTime(convertedTask);
+            validateTaskTime(taskData);
         } catch (InvalidTaskDataException ex) {
-            throw new RuntimeException(ex);
+            throw new InvalidTaskDataException(ex.getMessage());
         }
+
+        var convertedTask = mapper.toTaskEntity(taskData);
         repository.save(convertedTask);
         return convertedTask;
     }
+
 
     public Task getSimpleTask(UUID id){
         logger.info("finding a unique task saved on database.");
@@ -51,7 +58,7 @@ public class TaskService {
     }
 
     public Task editTask(TaskDTO editedTask) {
-        var taskToEdit = repository.getReferenceById(editedTask.id());
+        var taskToEdit = repository.getReferenceById(editedTask.getId());
         repository.save(taskToEdit);
         return taskToEdit;
     }
@@ -61,12 +68,17 @@ public class TaskService {
         repository.delete(findTask);
     }
     // função que valida se a data da tarefa informada está válida
-    public boolean validateTaskTime(Task task){
-        if (task.getStartTime().isAfter(task.getEndTime())){
-            throw new InvalidTaskDataException("the date of task is invalid. please check.");
-        }else if (task.getStartTime().isEqual(task.getEndTime())){
-            throw new InvalidTaskDataException("seu burro, tarefa na mesma hora que começa termina?");
-        }
-        return true;
+    public boolean validateTaskTime(TaskDTO dto){
+        return switch (dto) {
+            case TaskDTO d when d.getStartTime().isAfter(d.getEndTime()) ->
+                    throw new InvalidTaskDataException("a data de início está inválida.");
+
+            case TaskDTO d when d.getStartTime().isEqual(d.getEndTime()) ->
+                    throw new InvalidTaskDataException("seu burro, tarefa na mesma hora que começa termina?");
+
+            case TaskDTO d when d.getStartTime().isBefore(LocalDateTime.ofInstant(Instant.now(),ZoneId.systemDefault())) ->
+                    throw new InvalidTaskDataException("a tarefa é para o passado seu burro? não dá kkk");
+            case null, default -> true;
+        };
     }
 }
