@@ -14,6 +14,15 @@ import java.util.Date;
 @RestControllerAdvice
 public class CustomExceptionResponseHandler  extends ResponseEntityExceptionHandler {
 
+    @ExceptionHandler(Exception.class)
+    public final ResponseEntity<ExceptionResponse> handleAllExceptions (Exception ex, WebRequest request) {
+        ExceptionResponse response = new ExceptionResponse(
+                new Date(),
+                ex.getMessage(),
+                request.getDescription(false));
+        return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
     @ExceptionHandler(ResourceNotFoundException.class)
     public final ResponseEntity<ExceptionResponse> handleResourceNotFoundExceptions (Exception ex, WebRequest request) {
         ExceptionResponse response = new ExceptionResponse(
