@@ -95,11 +95,12 @@ public class TaskService {
     }
 
     //função que expira uma tarefa quando ela passa do tempo.
-    public void expireTask(Task task){
+    public Task checkExpiredTasks(Task task){
         var instantDate = LocalDateTime.ofInstant(Instant.now(),ZoneId.systemDefault());
         if (task.getEndTime().isAfter(instantDate)){
             task.setStatus(TaskStatus.EXPIRED);
         }
+        return task;
     }
 
     //função que valida se a tarefa está sendo sobreposta (provável feature)
