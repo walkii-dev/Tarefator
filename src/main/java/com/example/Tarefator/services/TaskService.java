@@ -25,6 +25,8 @@ public class TaskService {
     final TaskRepository repository;
     final TaskMapper mapper;
 
+    final LocalDateTime actualServerTime = LocalDateTime.ofInstant(Instant.now(),ZoneId.systemDefault());
+
     public TaskService (TaskRepository repository, TaskMapper mapper){
         this.repository = repository;
         this.mapper = mapper;
@@ -67,6 +69,10 @@ public class TaskService {
     public Task editTask(TaskDTO editedTask) {
         var taskToEdit = repository.getReferenceById(editedTask.getId());
         taskToEdit.setStatus(TaskStatus.EDITED);
+        taskToEdit.setTitle(editedTask.getTitle());
+        taskToEdit.setDescription(editedTask.getDescription());
+        taskToEdit.setStartTime(editedTask.getStartTime());
+        taskToEdit.setEndTime(editedTask.getEndTime());
         repository.save(taskToEdit);
         return taskToEdit;
     }
@@ -96,12 +102,14 @@ public class TaskService {
 
     //função que expira uma tarefa quando ela passa do tempo.
     public Task checkExpiredTasks(Task task){
-        var instantDate = LocalDateTime.ofInstant(Instant.now(),ZoneId.systemDefault());
-        if (task.getEndTime().isAfter(instantDate)){
+
+        if (task.getEndTime().isBefore(actualServerTime)){
             task.setStatus(TaskStatus.EXPIRED);
+            repository.save(task);
         }
         return task;
     }
+
 
     //função que valida se a tarefa está sendo sobreposta (provável feature)
 }

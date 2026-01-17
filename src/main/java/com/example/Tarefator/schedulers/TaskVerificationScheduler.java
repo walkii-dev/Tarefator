@@ -13,29 +13,28 @@ import java.util.List;
 
 @Component
 @EnableScheduling
-public class TaskScheduler {
+public class TaskVerificationScheduler {
 
     final TaskRepository repository;
     final TaskService service;
 
-    public TaskScheduler(TaskRepository repository,TaskService service){
+    public TaskVerificationScheduler(TaskRepository repository,TaskService service){
         this.repository = repository;
         this.service = service;
     }
 
-    Logger logger = LoggerFactory.getLogger(TaskScheduler.class.getName());
+    Logger logger = LoggerFactory.getLogger(TaskVerificationScheduler.class.getName());
 
-    @Scheduled(fixedRate = 10000,initialDelay = 10000)
+    @Scheduled(fixedRate = 60000)
     public void verifyExpiredTasks(){
         logger.info("verificando tarefas que podem expirar.");
-        System.out.println("verificando tarefas que podem expirar.");
 
         List<Task> allTasks = repository.findAll();
-
         for (Task t : allTasks){
             service.checkExpiredTasks(t);
         }
     }
+
 
 
 
