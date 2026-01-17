@@ -1,5 +1,6 @@
 package com.example.Tarefator.models;
 
+import com.example.Tarefator.dtos.TaskDTO;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -25,12 +26,20 @@ public class Task implements Serializable {
     @Column(nullable = false)
     private LocalDateTime endTime;
 
+    @Column(nullable = false)
+    private TaskStatus status;
+
 
     public Task (String title, String description,LocalDateTime start, LocalDateTime finish){
         this.title = title;
         this.description = description;
         this.startTime = start;
         this.endTime = finish;
+        this.status = TaskStatus.CREATED;
+    }
+    public Task(TaskDTO data){
+        this(data.getTitle(), data.getDescription(), data.getStartTime(),data.getEndTime());
+        this.setStatus(TaskStatus.CREATED);
     }
     public Task(){
         //empty constructor.
@@ -76,15 +85,23 @@ public class Task implements Serializable {
         this.endTime = endTime;
     }
 
+    public TaskStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(TaskStatus status) {
+        this.status = status;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Task task = (Task) o;
-        return Objects.equals(getId(), task.getId()) && Objects.equals(getTitle(), task.getTitle()) && Objects.equals(getDescription(), task.getDescription()) && Objects.equals(getStartTime(), task.getStartTime()) && Objects.equals(getEndTime(), task.getEndTime());
+        return Objects.equals(getId(), task.getId()) && Objects.equals(getTitle(), task.getTitle()) && Objects.equals(getDescription(), task.getDescription()) && Objects.equals(getStartTime(), task.getStartTime()) && Objects.equals(getEndTime(), task.getEndTime()) && getStatus() == task.getStatus();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getTitle(), getDescription(), getStartTime(), getEndTime());
+        return Objects.hash(getId(), getTitle(), getDescription(), getStartTime(), getEndTime(), getStatus());
     }
 }

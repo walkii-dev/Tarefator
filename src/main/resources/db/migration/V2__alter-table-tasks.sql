@@ -1,0 +1,9 @@
+ALTER TABLE tasks
+ADD COLUMN task_status ENUM(
+    'CREATED',
+    'CURRENT',
+    'EDITED',
+    'DONE',
+    'EXPIRED',
+    'CANCELLED'
+    ) NOT NULL DEFAULT 'CREATED';
