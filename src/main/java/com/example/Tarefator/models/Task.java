@@ -25,6 +25,7 @@ public class Task implements Serializable {
     @Column(nullable = false)
     private LocalDateTime endTime;
 
+
     public Task (String title, String description,LocalDateTime start, LocalDateTime finish){
         this.title = title;
         this.description = description;
