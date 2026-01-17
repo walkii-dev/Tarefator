@@ -1,5 +1,6 @@
 package com.example.Tarefator.controllers;
 
+import com.example.Tarefator.dtos.TaskCreationDTO;
 import com.example.Tarefator.dtos.TaskDTO;
 import com.example.Tarefator.services.TaskService;
 import jakarta.validation.Valid;
@@ -23,8 +24,7 @@ public class TaskController {
     @PostMapping
     @Transactional
     public ResponseEntity saveTask (@RequestBody @Valid TaskDTO newTaskData, UriComponentsBuilder uriBuilder){
-         var taskCreated = service.createTask(newTaskData);
-
+        var taskCreated = service.createTask(newTaskData);
         var uri = uriBuilder.path("/tasks/{id}").buildAndExpand(taskCreated.getId()).toUri();
         return ResponseEntity.created(uri).body(new TaskDTO(taskCreated));
     }
@@ -32,7 +32,7 @@ public class TaskController {
     @GetMapping("/{id}")
     public ResponseEntity getSomeTask (@PathVariable UUID id){
             var task = service.getSimpleTask(id);
-        return ResponseEntity.ok(new TaskDTO(task));
+        return ResponseEntity.ok(task);
     }
 
     @GetMapping
@@ -50,7 +50,7 @@ public class TaskController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity deleteTask(@PathVariable UUID id){
-         service.deleteTask(id);
+         service.cancelTask(id);
         return ResponseEntity.noContent().build();
     }
 
