@@ -1,0 +1,86 @@
+/* Container do Card */
+.card {
+  background-color: white;
+  border: 3px solid #0047AB; /* Borda grossa azul */
+  border-radius: 12px;
+  padding: 20px;
+  font-family: 'Segoe UI', sans-serif;
+  display: flex;
+  flex-direction: column;
+  height: 100%; /* Garante que todos no grid tenham mesma altura */
+  box-sizing: border-box;
+  transition: transform 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-2px); /* Efeito sutil ao passar o mouse */
+}
+
+/* Título */
+.card-title {
+  margin: 0 0 5px 0;
+  font-size: 1.4rem;
+  font-weight: 800; /* Extra bold */
+  color: #000;
+
+  /* Lógica para o "..." (Ellipsis) no título */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Data */
+.card-date {
+  margin: 0 0 15px 0;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #000;
+  text-align: left; /* Na imagem parece alinhado à esquerda ou levemente centralizado, left é mais seguro */
+}
+
+/* Descrição */
+.card-description {
+  margin: 0 0 20px 0;
+  font-size: 1rem;
+  color: #333;
+  line-height: 1.4;
+  flex-grow: 1; /* Empurra os botões para o final do card */
+
+  /* Lógica para cortar o texto após 4 linhas (como na imagem) */
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Área de Botões */
+.card-actions {
+  display: flex;
+  justify-content: flex-end; /* Alinha à direita */
+  gap: 10px;
+}
+
+.action-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px; /* Bordas levemente arredondadas */
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.2s;
+}
+
+.action-btn:hover {
+  opacity: 0.8;
+}
+
+/* Cores específicas */
+.btn-edit {
+  background-color: #FFC107; /* Amarelo/Laranja */
+}
+
+.btn-delete {
+  background-color: #FF4C4C; /* Vermelho claro */
+}
