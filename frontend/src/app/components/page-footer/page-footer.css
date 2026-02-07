@@ -1,0 +1,22 @@
+.footer {
+  background-color: #0047AB; /* Mesmo azul do header */
+  color: white;              /* Texto branco */
+  height: 50px;              /* Altura um pouco menor que o header (que é 64px) */
+  width: 100%;               /* Garante que ocupe a largura total */
+
+  display: flex;
+  justify-content: center;   /* Centraliza horizontalmente */
+  align-items: center;       /* Centraliza verticalmente */
+
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 0.9rem;         /* Texto levemente menor */
+
+  /* Sombra sutil voltada para cima */
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.footer-text {
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
