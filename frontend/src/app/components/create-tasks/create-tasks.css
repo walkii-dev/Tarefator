@@ -1,0 +1,129 @@
+/* Container que centraliza o formulário (opcional) */
+.form-container {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: transparent; /* Ou white se preferir card */
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* --- Estilos Gerais de Inputs --- */
+.input-primary {
+  width: 100%;
+  border: 2px solid #0047AB; /* A borda azul grossa da imagem */
+  border-radius: 8px;
+  padding: 12px 15px;
+  font-size: 1rem;
+  color: #333;
+  outline: none;
+  background-color: white;
+  box-sizing: border-box; /* Garante que o padding não aumente a largura */
+}
+
+.input-primary::placeholder {
+  color: #a0a0a0;
+}
+
+.input-primary:focus {
+  box-shadow: 0 0 5px rgba(0, 71, 171, 0.3);
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+/* Input específico para a área de texto (maior altura) */
+.textarea-detail {
+  min-height: 120px;
+  resize: vertical; /* Permite o usuário aumentar se quiser */
+  font-family: inherit;
+}
+
+/* --- Linha de Data e Hora --- */
+.datetime-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap; /* Para telas pequenas */
+  margin-bottom: 25px;
+  gap: 20px;
+}
+
+.datetime-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.label {
+  font-size: 1.1rem;
+  color: #000;
+  font-weight: 500;
+}
+
+.inputs-wrapper {
+  display: flex;
+  gap: 8px;
+}
+
+/* Inputs pequenos (DD, MM, HH) */
+.input-small, .input-medium {
+  border: 2px solid #0047AB;
+  border-radius: 8px;
+  padding: 8px;
+  text-align: center;
+  font-size: 1rem;
+  outline: none;
+  color: #555;
+}
+
+.input-small {
+  width: 50px;
+}
+
+.input-medium {
+  width: 70px; /* Um pouco maior para o ano (AAAA) */
+}
+
+.input-small::placeholder, .input-medium::placeholder {
+  color: #ccc;
+}
+
+/* --- Botões --- */
+.actions-row {
+  display: flex;
+  gap: 20px;
+}
+
+.btn {
+  flex: 1; /* Faz os botões ocuparem 50% cada */
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: opacity 0.2s;
+}
+
+.btn:hover {
+  opacity: 0.9;
+}
+
+.btn-save {
+  background-color: #0047AB; /* Azul cobalto */
+  color: white;
+}
+
+.btn-cancel {
+  background-color: #0047AB; /* Na imagem ambos parecem azuis */
+  color: white;
+}
+
+/* Se quiser o botão Cancelar diferente (opcional) */
+/*
+.btn-cancel {
+  background-color: #ccc;
+  color: #333;
+}
+*/
