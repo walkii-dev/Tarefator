@@ -18,4 +18,9 @@ export class CreateTasks {
     }
   }
 
+  confirmTask(){
+    alert("Tarefa criada com sucesso!");
+    this.router.navigate(["/listTasks"]);
+  }
+
 }

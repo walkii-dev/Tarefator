@@ -13,7 +13,7 @@
 }
 
 .card:hover {
-  transform: translateY(-2px); /* Efeito sutil ao passar o mouse */
+  background-color:rgb(238, 238, 238);
 }
 
 /* Título */

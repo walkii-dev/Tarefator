@@ -1,9 +1,9 @@
 /* --- Botão Adicionar Tarefa --- */
 .btn-add-task {
-  width: 100%;
+  width: 52%;
   background-color: #0047AB; /* Azul padrão do projeto */
   color: white;
-  border: none;
+  border: 0px;
   border-radius: 12px;
   padding: 15px;
   font-size: 1.2rem;
@@ -13,6 +13,8 @@
   align-items: center;
   justify-content: center;
   gap: 10px;
+  margin: 0 auto;
+  margin-top: 30px;
   margin-bottom: 30px;
   transition: background-color 0.2s;
   font-family: 'Segoe UI', sans-serif;
@@ -32,8 +34,21 @@
 
 .tasks-grid {
   display: grid;
-  justify-content: center;
-  align-items: center;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+
+  grid-template-columns: repeat(3, 1fr);
+
   gap: 20px;
+
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+
+  justify-items: stretch;
+}
+
+
+@media (max-width: 768px) {
+  .tasks-grid {
+    grid-template-columns: 1fr;
+  }
 }

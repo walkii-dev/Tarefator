@@ -1,7 +1,15 @@
-<button routerLink="/createTasks" class="btn-add-task" >
+<button (click)="navigateToCreateTask()" class="btn-add-task" >
   <span class="plus-icon">+</span> Adicionar Tarefa
 </button>
 
-<div class="tasks-grid">
-  <app-task-card></app-task-card>
+<div class="tasks-grid" *ngIf="tasksList.length > 0; else noTasks">
+  <div *ngFor="let task of tasksList">
+    <app-task-card [task]="task"></app-task-card>
+  </div>
 </div>
+
+<ng-template #noTasks>
+  <div class="ff-inter no-tasks">
+    <p>Sem tarefas no momento.</p>
+  </div>
+</ng-template>

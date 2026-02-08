@@ -3,6 +3,9 @@
   color: white;              /* Texto branco */
   height: 50px;              /* Altura um pouco menor que o header (que é 64px) */
   width: 100%;               /* Garante que ocupe a largura total */
+  position: fixed;
+  bottom: 0;
+
 
   display: flex;
   justify-content: center;   /* Centraliza horizontalmente */

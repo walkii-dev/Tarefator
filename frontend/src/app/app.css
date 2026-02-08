@@ -1,7 +1,9 @@
 .main-container {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 1rem 0 2rem;
 }
 
 .content {
