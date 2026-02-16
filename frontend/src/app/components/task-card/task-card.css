@@ -77,10 +77,9 @@
 }
 
 /* Cores específicas */
-.btn-edit {
-  background-color: #FFC107; /* Amarelo/Laranja */
+.btn-moreinfo {
+  background-color: #0047AB;
+  color: antiquewhite;
+  font-weight: 800px;
 }
 
-.btn-delete {
-  background-color: #FF4C4C; /* Vermelho claro */
-}
