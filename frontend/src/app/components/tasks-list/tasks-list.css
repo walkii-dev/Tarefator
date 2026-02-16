@@ -17,7 +17,7 @@
   margin-top: 30px;
   margin-bottom: 30px;
   transition: background-color 0.2s;
-  font-family: 'Segoe UI', sans-serif;
+
   text-decoration: none; /* Caso use tag <a> em vez de button */
 }
 
@@ -45,7 +45,11 @@
 
   justify-items: stretch;
 }
-
+.ff-inter{
+  display: flex;
+  justify-content: center;
+  font-family: 'Segoe UI', sans-serif;
+}
 
 @media (max-width: 768px) {
   .tasks-grid {

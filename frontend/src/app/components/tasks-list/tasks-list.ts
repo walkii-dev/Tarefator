@@ -1,7 +1,9 @@
-import { Component, inject } from '@angular/core';
+import { Component, OnInit,  inject } from '@angular/core';
 import { TaskCard } from "../task-card/task-card";
 import { Router } from "@angular/router";
 import { CommonModule } from '@angular/common';
+import { Task } from "./../task";
+import { TaskService } from '../task-service';
 
 @Component({
   selector: 'app-tasks-list',
@@ -10,7 +12,7 @@ import { CommonModule } from '@angular/common';
   templateUrl: './tasks-list.html',
   styleUrl: './tasks-list.css',
 })
-export class TasksList {
+export class TasksList implements OnInit {
 
   private router = inject(Router);
 
@@ -18,30 +20,14 @@ export class TasksList {
     this.router.navigate(["/createTasks"]);
   }
 
-  tasksList=[
-    {
-      titulo:"acordar",
-      detalhes:"acordar ne pq ngm é de ferro",
-      data:"09/02/2026",
-      hora:"06:00"
-    },
-    {
-      titulo:"trabalhar",
-      detalhes:"trabalhar ne pq ngm é de ferro",
-      data:"09/02/2026",
-      hora:"08:00"
-    },{
-      titulo:"dormir",
-      detalhes:"dormir ne pq ngm é de ferro",
-      data:"09/02/2026",
-      hora:"23:30"
-    },
-    {
-      titulo:"dormir",
-      detalhes:"dormir ne pq ngm é de ferro",
-      data:"09/02/2026",
-      hora:"23:30"
-    }
-  ];
+  tasksList: Task[] = [];
+
+  constructor(private service:TaskService){ }
+
+  ngOnInit(): void {
+    this.service.listar().subscribe((tasksList) =>{
+      this.tasksList = tasksList;
+    })
+  }
 
 }

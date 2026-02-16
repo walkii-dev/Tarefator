@@ -10,6 +10,7 @@ import { Router } from "@angular/router";
 export class CreateTasks {
   constructor(private router: Router){}
 
+
   cancelTask(){
     const message = "Tem certeza que deseja cancelar a nova tarefa?";
 

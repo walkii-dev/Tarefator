@@ -2,14 +2,17 @@
   <span class="plus-icon">+</span> Adicionar Tarefa
 </button>
 
-<div class="tasks-grid" *ngIf="tasksList.length > 0; else noTasks">
-  <div *ngFor="let task of tasksList">
-    <app-task-card [task]="task"></app-task-card>
+@if(tasksList.length > 0) {
+  <div class="tasks-grid">
+    @for(task of tasksList;track task.id) {
+      <div>
+        <app-task-card [task]="task"></app-task-card>
+      </div>
+    }
   </div>
-</div>
-
-<ng-template #noTasks>
+} @else {
   <div class="ff-inter no-tasks">
-    <p>Sem tarefas no momento.</p>
+    <p>sem tarefas no momento.</p>
   </div>
-</ng-template>
+}
+
