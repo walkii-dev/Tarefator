@@ -1,18 +1,26 @@
 import { Component, OnInit,  inject } from '@angular/core';
 import { TaskCard } from "../task-card/task-card";
 import { Router } from "@angular/router";
-import { CommonModule } from '@angular/common';
-import { Task } from "./../task";
-import { TaskService } from '../task-service';
+import { AsyncPipe, CommonModule } from '@angular/common';
+import { Task } from "./../../task";
+import { TaskService } from '../../task-service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-tasks-list',
   imports: [TaskCard,
-            CommonModule],
+            CommonModule,
+            AsyncPipe],
   templateUrl: './tasks-list.html',
   styleUrl: './tasks-list.css',
 })
-export class TasksList implements OnInit {
+export class TasksList {
+
+  constructor(private service:TaskService){
+    this.tasksList$ = this.service.listar();
+   }
+
+  tasksList$: Observable<Task[]>;
 
   private router = inject(Router);
 
@@ -20,14 +28,6 @@ export class TasksList implements OnInit {
     this.router.navigate(["/createTasks"]);
   }
 
-  tasksList: Task[] = [];
 
-  constructor(private service:TaskService){ }
-
-  ngOnInit(): void {
-    this.service.listar().subscribe((tasksList) =>{
-      this.tasksList = tasksList;
-    })
-  }
 
 }

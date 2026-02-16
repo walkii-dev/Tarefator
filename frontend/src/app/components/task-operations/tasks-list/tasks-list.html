@@ -2,9 +2,10 @@
   <span class="plus-icon">+</span> Adicionar Tarefa
 </button>
 
+@if(tasksList$ | async; as tasksList){
 @if(tasksList.length > 0) {
   <div class="tasks-grid">
-    @for(task of tasksList;track task.id) {
+    @for(task of tasksList; track task.id) {
       <div>
         <app-task-card [task]="task"></app-task-card>
       </div>
@@ -13,6 +14,11 @@
 } @else {
   <div class="ff-inter no-tasks">
     <p>sem tarefas no momento.</p>
+  </div>
+}
+} @else {
+  <div class="ff-inter no-tasks">
+    <p>carregando tarefas...</p>
   </div>
 }
 
