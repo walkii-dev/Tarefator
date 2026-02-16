@@ -111,19 +111,11 @@
 }
 
 .btn-save {
-  background-color: #0047AB; /* Azul cobalto */
+  background-color: #0047AB;
   color: white;
 }
 
 .btn-cancel {
-  background-color: #0047AB; /* Na imagem ambos parecem azuis */
+  background-color: #0047AB;
   color: white;
 }
-
-/* Se quiser o botão Cancelar diferente (opcional) */
-/*
-.btn-cancel {
-  background-color: #ccc;
-  color: #333;
-}
-*/

@@ -2,20 +2,22 @@
   <form>
 
     <div class="form-group">
-      <input
-        type="text"
-        class="input-primary"
-        formControlName="title"
-        placeholder="Qual será sua próxima tarefa?"
-      >
+    <input
+      type="text"
+      class="input-primary"
+      name="titulo"
+      placeholder="Qual será sua próxima tarefa?"
+      [(ngModel)]="earlyTask.title"
+    >
     </div>
-
     <div class="form-group">
-      <textarea
-        class="input-primary textarea-detail"
-        formControlName="description"
-        placeholder="Informe mais detalhes..."
-      ></textarea>
+    <textarea
+      class="input-primary textarea-detail"
+      name="detalhes"
+      placeholder="Informe mais detalhes..."
+      rows="4"
+      [(ngModel)]="earlyTask.details"
+    ></textarea>
     </div>
 
     <div class="datetime-row">
@@ -23,25 +25,25 @@
       <div class="datetime-group">
         <label class="label">Data:</label>
         <div class="inputs-wrapper">
-          <input type="text" class="input-small" placeholder="DD" maxlength="2" formControlName="day">
-          <input type="text" class="input-small" placeholder="MM" maxlength="2" formControlName="month">
-          <input type="text" class="input-medium" placeholder="AAAA" maxlength="4" formControlName="year">
+          <input type="text" placeholder="DD" maxlength="2" class="input-small" name="dia" [(ngModel)]="earlyTask.dateDay">
+          <input type="text" placeholder="MM" maxlength="2" class="input-small" name="mes" [(ngModel)]="earlyTask.dateMonth">
+          <input type="text" placeholder="AAAA" maxlength="4" class="input-medium" name="ano" [(ngModel)]="earlyTask.dateYear">
         </div>
       </div>
 
       <div class="datetime-group">
         <label class="label">Hora:</label>
         <div class="inputs-wrapper">
-          <input type="text" class="input-small" placeholder="HH" maxlength="2" formControlName="hour">
-          <input type="text" class="input-small" placeholder="MM" maxlength="2" formControlName="minute">
+          <input type="text" placeholder="HH" maxlength="2" class="input-small" name="hora" [(ngModel)]="earlyTask.timeHour">
+          <input type="text" placeholder="MM" maxlength="2" class="input-small" name="minuto" [(ngModel)]="earlyTask.timeMinute">
         </div>
       </div>
-
     </div>
 
+
     <div class="actions-row">
-      <button type="submit" class="btn btn-save" (click)="confirmTask()">Salvar</button>
-      <button type="button" class="btn btn-cancel" (click)="cancelTask()">Cancelar</button>
+      <button (click)="confirmTask()" class="btn btn-save">Salvar</button>
+      <button (click)="cancelTask()" class="btn btn-cancel">Cancelar</button>
     </div>
 
   </form>
