@@ -1,15 +1,14 @@
 import { Component, Input } from '@angular/core';
-import { Task } from "../../task";
 import { RouterLink } from "@angular/router";
+import { Task } from "../../task";
 
 @Component({
-  selector: 'app-task-card',
+  selector: 'app-task-card-detail',
   imports: [RouterLink],
-  templateUrl: './task-card.html',
-  styleUrl: './task-card.css',
+  templateUrl: './task-card-detail.html',
+  styleUrl: './task-card-detail.css',
 })
-export class TaskCard {
-
+export class TaskCardDetail {
   @Input() task: Task={
     titulo:"",
     detalhes:"",

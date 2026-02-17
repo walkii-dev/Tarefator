@@ -1,0 +1,32 @@
+<div class="task-details-wrapper">
+<div class="task-card">
+  <div class="card-header">
+    <h3 class="task-title">{{task.titulo}}</h3>
+    <span class="task-status">Status: <em>Pendente</em></span>
+  </div>
+
+  <div class="card-body">
+    <p class="task-description">{{task.detalhes}}
+    </p>
+  </div>
+
+  <div class="card-footer">
+    <span class="task-date">{{task.data}}, as {{task.hora}}.</span>
+
+    <div class="task-actions">
+      <button type="button" class="btn btn-edit">
+        <i class="icon-pencil"></i> Editar
+      </button>
+
+      <button type="button" class="btn btn-delete">
+        <i class="icon-trash"></i> Cancelar
+      </button>
+    </div>
+  </div>
+</div>
+<div class="back-action-container">
+    <button class="btn-back-menu" a routerLink="/listTasks">
+      <i>←</i> Voltar para o Menu
+    </button>
+  </div>
+</div>
