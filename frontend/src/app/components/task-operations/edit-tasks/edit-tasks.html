@@ -1,0 +1,49 @@
+<div class="form-container">
+  <form [formGroup]="formulario" >
+    <div class="form-group">
+    <input
+      type="text"
+      class="input-primary"
+      name="titulo"
+      placeholder="Edite o Título da tarefa"
+      formControlName="titulo"
+    >
+    </div>
+    <div class="form-group">
+    <textarea
+      class="input-primary textarea-detail"
+      name="detalhes"
+      placeholder="alinhe os detalhes da tarefa..."
+      rows="4"
+      formControlName="detalhes"
+    ></textarea>
+    </div>
+
+    <div class="datetime-row">
+
+      <div class="datetime-group">
+        <label class="label">Data:</label>
+        <div class="inputs-wrapper">
+          <input type="text" placeholder="DD" maxlength="2" class="input-small" name="dia" formControlName="dia">
+          <input type="text" placeholder="MM" maxlength="2" class="input-small" name="mes" formControlName="mes">
+          <input type="text" placeholder="AAAA" maxlength="4" class="input-medium" name="ano" formControlName="ano">
+        </div>
+      </div>
+
+      <div class="datetime-group">
+        <label class="label">Hora:</label>
+        <div class="inputs-wrapper">
+          <input type="text" placeholder="HH" maxlength="2" class="input-small" name="hora" formControlName="hora">
+          <input type="text" placeholder="MM" maxlength="2" class="input-small" name="minuto" formControlName="minuto">
+        </div>
+      </div>
+    </div>
+
+
+    <div class="actions-row">
+      <button (click)="editarTarefa()" class="btn btn-save">Salvar</button>
+      <button (click)="cancelTask()" class="btn btn-cancel">Cancelar</button>
+    </div>
+
+  </form>
+</div>

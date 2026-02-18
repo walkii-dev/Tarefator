@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from "@angular/router";
 import { Task } from "../../task";
 import { TaskService } from '../../task-service';
@@ -22,6 +22,11 @@ export class TaskCardDetail implements OnInit {
   ){}
 
     task$!: Observable<Task>;
+
+    editTask(){
+      const id = (this.route.snapshot.paramMap.get("id"));
+      this.router.navigate(["/editTasks/",id]);
+    }
 
     cancelTask(){
       const id = (this.route.snapshot.paramMap.get("id"));

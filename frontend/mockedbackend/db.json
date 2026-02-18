@@ -1,3 +1,18 @@
 {
-  "tasksList": []
+  "tasksList": [
+    {
+      "id": "64e7",
+      "titulo": "Título da Tarefa",
+      "detalhes": "Detalhes da tarefa.",
+      "data": "18/02/2026",
+      "hora": "19:30"
+    },
+    {
+      "id": "7751",
+      "titulo": "Mais uma tarefa",
+      "detalhes": "tarefa boa",
+      "data": "01/01/2001",
+      "hora": "12:20"
+    }
+  ]
 }

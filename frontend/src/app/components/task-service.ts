@@ -20,6 +20,11 @@ export class TaskService {
     return this.http.post(this.API, task);
   }
 
+  editar(id:string ,task: Task): Observable<Task> {
+    const url = `${this.API}/${task.id}`;
+    return this.http.put<Task>(url,task);
+  }
+
   excluir(id: string): Observable<Task>{
     const url = `${this.API}/${id}`;
     return this.http.delete<Task>(url);
