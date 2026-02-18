@@ -43,7 +43,7 @@ export class CreateTasks {
     const convertedTask: Task ={
       titulo: this.earlyTask.title,
       detalhes: this.earlyTask.details,
-      data: `${dayF}-${monthF}-${yearF}`,
+      data: `${dayF}/${monthF}/${yearF}`,
       hora: `${hourF}:${minuteF}`
     };
 

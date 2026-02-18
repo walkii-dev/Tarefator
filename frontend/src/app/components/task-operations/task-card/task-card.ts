@@ -11,10 +11,15 @@ import { RouterLink } from "@angular/router";
 export class TaskCard {
 
   @Input() task: Task={
+    id:"",
     titulo:"",
     detalhes:"",
     data:"",
     hora:""
     };
 
+    markAsDone(){
+      alert("tarefa marcada como concluída!");
+      // se a tarefa já estiver expirada, o botão deve mudar! se for cancelada ele nem aparece (mudar status do botão)
+    }
 }

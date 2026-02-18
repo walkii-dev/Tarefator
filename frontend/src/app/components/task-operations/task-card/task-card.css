@@ -81,5 +81,10 @@
   background-color: #0047AB;
   color: antiquewhite;
   font-weight: 800px;
+
+}.btn-mark-done {
+  background-color: #0f7a01;
+  color: antiquewhite;
+  font-weight: 800px;
 }
 

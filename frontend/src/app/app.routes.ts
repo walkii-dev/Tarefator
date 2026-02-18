@@ -18,7 +18,7 @@ export const routes: Routes = [
     component:CreateTasks
   },
   {
-    path:"uniqueCard",
+    path:"uniqueCard/:id",
     component:TaskCardDetail
   }
 ];

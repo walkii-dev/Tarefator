@@ -13,9 +13,15 @@
 
   <div class="card-actions">
 
-    <button class="action-btn btn-moreinfo" title="Mais informações"  a routerLink="/uniqueCard">
+    <button class="action-btn btn-mark-done" title="Concluir" (click)="markAsDone()">
+      <p class="action-btn btn-mark-done">OK</p>
+    </button>
+
+    <button class="action-btn btn-moreinfo" title="Mais informações"  a routerLink="/uniqueCard/{{ task.id }}">
       <p class="action-btn btn-moreinfo">. . .</p>
     </button>
+
+
 
   </div>
 </div>

@@ -20,4 +20,14 @@ export class TaskService {
     return this.http.post(this.API, task);
   }
 
+  excluir(id: string): Observable<Task>{
+    const url = `${this.API}/${id}`;
+    return this.http.delete<Task>(url);
+  }
+
+  encontrarPorId(id: string): Observable<Task>{
+    const url = `${this.API}/${id}`;
+    return this.http.get<Task>(url);
+  }
+
 }

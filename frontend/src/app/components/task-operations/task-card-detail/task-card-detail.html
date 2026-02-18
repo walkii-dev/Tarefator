@@ -1,5 +1,6 @@
 <div class="task-details-wrapper">
 <div class="task-card">
+@if (task$ | async; as task){
   <div class="card-header">
     <h3 class="task-title">{{task.titulo}}</h3>
     <span class="task-status">Status: <em>Pendente</em></span>
@@ -18,11 +19,13 @@
         <i class="icon-pencil"></i> Editar
       </button>
 
-      <button type="button" class="btn btn-delete">
+      <button type="button" class="btn btn-delete" (click)="cancelTask()">
         <i class="icon-trash"></i> Cancelar
       </button>
     </div>
+
   </div>
+}
 </div>
 <div class="back-action-container">
     <button class="btn-back-menu" a routerLink="/listTasks">
