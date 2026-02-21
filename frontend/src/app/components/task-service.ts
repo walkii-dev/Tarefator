@@ -22,7 +22,6 @@ export class TaskService {
 
   editar(id:string ,task: Task): Observable<Task> {
     const url = `${this.API}/${id}`;
-    console.log(task);
     return this.http.put<Task>(url,task);
   }
 
@@ -34,6 +33,11 @@ export class TaskService {
   encontrarPorId(id: string): Observable<Task>{
     const url = `${this.API}/${id}`;
     return this.http.get<Task>(url);
+  }
+
+  markAsDone(id:string ,task: Task){
+    const url = `${this.API}/${id}`;
+    return this.http.put<Task>(url,task);
   }
 
 }

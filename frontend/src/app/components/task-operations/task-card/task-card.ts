@@ -20,6 +20,6 @@ export class TaskCard {
 
     markAsDone(){
       alert("tarefa marcada como concluída!");
-      // se a tarefa já estiver expirada, o botão deve mudar! se for cancelada ele nem aparece (mudar status do botão)
+      this.service.markAsDone();
     }
 }
