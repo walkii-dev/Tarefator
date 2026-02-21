@@ -15,36 +15,51 @@ export class CreateTasks {
   constructor(private router: Router,private service:TaskService){}
 
   task: Task = {
-    titulo:"",
-    detalhes:"",
-    data:"",
-    hora:"",
+    title:"",
+    description:"",
+    startTime:"",
+    endTime:"",
 
   }
 
   earlyTask={
     title:"",
     details:"",
-    dateDay:"",
-    dateMonth:"",
-    dateYear:"",
-    timeHour:"",
-    timeMinute:""
+
+    startDay:"",
+    startMonth:"",
+    startYear:"",
+
+    startHour:"",
+    startMinute:"",
+
+    endDay:"",
+    endMonth:"",
+    endYear:"",
+
+    endHour:"",
+    endMinute:""
   }
 
 
   convertTask(earlyTask: any){
-    const dayF = this.earlyTask.dateDay.padStart(2,"0");
-    const monthF = this.earlyTask.dateMonth.padStart(2,"0");
-    const yearF = this.earlyTask.dateYear;
-    const hourF = this.earlyTask.timeHour.padStart(2,"0");
-    const minuteF = this.earlyTask.timeMinute.padStart(2,"0");
+    const daySF = this.earlyTask.startDay.padStart(2,"0");
+    const monthSF = this.earlyTask.startMonth.padStart(2,"0");
+    const yearSF = this.earlyTask.startYear;
+    const hourSF = this.earlyTask.startHour.padStart(2,"0");
+    const minuteSF = this.earlyTask.startMinute.padStart(2,"0");
+
+    const dayEF = this.earlyTask.endDay.padStart(2,"0");
+    const monthEF = this.earlyTask.endMonth.padStart(2,"0");
+    const yearEF = this.earlyTask.endYear;
+    const hourEF = this.earlyTask.endHour.padStart(2,"0");
+    const minuteEF = this.earlyTask.endMinute.padStart(2,"0");
 
     const convertedTask: Task ={
-      titulo: this.earlyTask.title,
-      detalhes: this.earlyTask.details,
-      data: `${dayF}/${monthF}/${yearF}`,
-      hora: `${hourF}:${minuteF}`
+      title: this.earlyTask.title,
+      description: this.earlyTask.details,
+      startTime: `${yearSF}-${monthSF}-${daySF}T${hourSF}:${minuteSF}:00`,
+      endTime: `${yearEF}-${monthEF}-${dayEF}T${hourEF}:${minuteEF}:00`,
     };
 
     return convertedTask;

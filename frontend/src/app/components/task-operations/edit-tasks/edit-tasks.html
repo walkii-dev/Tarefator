@@ -6,35 +6,54 @@
       class="input-primary"
       name="titulo"
       placeholder="Edite o Título da tarefa"
-      formControlName="titulo"
+      formControlName="title"
     >
     </div>
     <div class="form-group">
     <textarea
       class="input-primary textarea-detail"
-      name="detalhes"
+      name="description"
       placeholder="alinhe os detalhes da tarefa..."
       rows="4"
-      formControlName="detalhes"
+      formControlName="description"
     ></textarea>
     </div>
 
     <div class="datetime-row">
 
       <div class="datetime-group">
-        <label class="label">Data:</label>
+        <label class="label">Data de início:</label>
         <div class="inputs-wrapper">
-          <input type="text" placeholder="DD" maxlength="2" class="input-small" name="dia" formControlName="dia">
-          <input type="text" placeholder="MM" maxlength="2" class="input-small" name="mes" formControlName="mes">
-          <input type="text" placeholder="AAAA" maxlength="4" class="input-medium" name="ano" formControlName="ano">
+          <input type="text" placeholder="DD" maxlength="2" class="input-small" name="startDay" formControlName="startDay">
+          <input type="text" placeholder="MM" maxlength="2" class="input-small" name="startMonth" formControlName="startMonth">
+          <input type="text" placeholder="AAAA" maxlength="4" class="input-medium" name="startYear" formControlName="startYear">
         </div>
       </div>
 
       <div class="datetime-group">
         <label class="label">Hora:</label>
         <div class="inputs-wrapper">
-          <input type="text" placeholder="HH" maxlength="2" class="input-small" name="hora" formControlName="hora">
-          <input type="text" placeholder="MM" maxlength="2" class="input-small" name="minuto" formControlName="minuto">
+          <input type="text" placeholder="HH" maxlength="2" class="input-small" name="startTime" formControlName="startHour">
+          <input type="text" placeholder="MM" maxlength="2" class="input-small" name="startMinute" formControlName="startMinute">
+        </div>
+      </div>
+    </div>
+    <div class="datetime-row">
+
+      <div class="datetime-group">
+        <label class="label">Data de Final:</label>
+        <div class="inputs-wrapper">
+          <input type="text" placeholder="DD" maxlength="2" class="input-small" name="endDay" formControlName="endDay">
+          <input type="text" placeholder="MM" maxlength="2" class="input-small" name="endMonth" formControlName="endMonth">
+          <input type="text" placeholder="AAAA" maxlength="4" class="input-medium" name="endYear" formControlName="endYear">
+        </div>
+      </div>
+
+      <div class="datetime-group">
+        <label class="label">Hora:</label>
+        <div class="inputs-wrapper">
+          <input type="text" placeholder="HH" maxlength="2" class="input-small" name="endHour" formControlName="endHour">
+          <input type="text" placeholder="MM" maxlength="2" class="input-small" name="endMinute" formControlName="endMinute">
         </div>
       </div>
     </div>

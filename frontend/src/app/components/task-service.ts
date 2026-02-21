@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class TaskService {
 
-  private readonly API = "http://localhost:3000/tasksList"
+  private readonly API = "http://localhost:8080/tasks"
 
   constructor(private http: HttpClient){ }
 
@@ -21,7 +21,8 @@ export class TaskService {
   }
 
   editar(id:string ,task: Task): Observable<Task> {
-    const url = `${this.API}/${task.id}`;
+    const url = `${this.API}/${id}`;
+    console.log(task);
     return this.http.put<Task>(url,task);
   }
 

@@ -12,10 +12,10 @@ export class TaskCard {
 
   @Input() task: Task={
     id:"",
-    titulo:"",
-    detalhes:"",
-    data:"",
-    hora:""
+    title:"",
+    description:"",
+    startTime:"",
+    endTime:""
     };
 
     markAsDone(){

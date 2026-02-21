@@ -23,19 +23,39 @@
     <div class="datetime-row">
 
       <div class="datetime-group">
-        <label class="label">Data:</label>
+        <label class="label">Data de início:</label>
         <div class="inputs-wrapper">
-          <input type="text" placeholder="DD" maxlength="2" class="input-small" name="dia" [(ngModel)]="earlyTask.dateDay">
-          <input type="text" placeholder="MM" maxlength="2" class="input-small" name="mes" [(ngModel)]="earlyTask.dateMonth">
-          <input type="text" placeholder="AAAA" maxlength="4" class="input-medium" name="ano" [(ngModel)]="earlyTask.dateYear">
+          <input type="text" placeholder="DD" maxlength="2" class="input-small" name="startDay" [(ngModel)]="earlyTask.startDay">
+          <input type="text" placeholder="MM" maxlength="2" class="input-small" name="startMonth" [(ngModel)]="earlyTask.startMonth">
+          <input type="text" placeholder="AAAA" maxlength="4" class="input-medium" name="startYear" [(ngModel)]="earlyTask.startYear">
         </div>
       </div>
 
       <div class="datetime-group">
         <label class="label">Hora:</label>
         <div class="inputs-wrapper">
-          <input type="text" placeholder="HH" maxlength="2" class="input-small" name="hora" [(ngModel)]="earlyTask.timeHour">
-          <input type="text" placeholder="MM" maxlength="2" class="input-small" name="minuto" [(ngModel)]="earlyTask.timeMinute">
+          <input type="text" placeholder="HH" maxlength="2" class="input-small" name="startHour" [(ngModel)]="earlyTask.startHour">
+          <input type="text" placeholder="MM" maxlength="2" class="input-small" name="startMinute" [(ngModel)]="earlyTask.startMinute">
+        </div>
+      </div>
+    </div>
+
+    <div class="datetime-row">
+
+      <div class="datetime-group">
+        <label class="label">Data do Final:</label>
+        <div class="inputs-wrapper">
+          <input type="text" placeholder="DD" maxlength="2" class="input-small" name="endDay" [(ngModel)]="earlyTask.endDay">
+          <input type="text" placeholder="MM" maxlength="2" class="input-small" name="endMonth" [(ngModel)]="earlyTask.endMonth">
+          <input type="text" placeholder="AAAA" maxlength="4" class="input-medium" name="endYear" [(ngModel)]="earlyTask.endYear">
+        </div>
+      </div>
+
+      <div class="datetime-group">
+        <label class="label">Hora:</label>
+        <div class="inputs-wrapper">
+          <input type="text" placeholder="HH" maxlength="2" class="input-small" name="endHour" [(ngModel)]="earlyTask.endHour">
+          <input type="text" placeholder="MM" maxlength="2" class="input-small" name="endMinute" [(ngModel)]="earlyTask.endMinute">
         </div>
       </div>
     </div>

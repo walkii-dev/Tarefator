@@ -1,7 +1,8 @@
 export interface Task {
   id?: string,
-  titulo: string,
-  detalhes: string,
-  data: string,
-  hora: string
+  title: string,
+  description: string,
+  startTime: string,
+  endTime: string,
+  status?: string
 }

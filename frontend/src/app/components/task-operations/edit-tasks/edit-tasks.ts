@@ -21,13 +21,20 @@ export class EditTasks implements OnInit {
               private route: ActivatedRoute,
               private formBuilder: FormBuilder){
                 this.formulario = this.formBuilder.group({
-      titulo: ['', Validators.required],
-      detalhes: "",
-      dia: ['', [Validators.required, Validators.min(1), Validators.max(31)]],
-      mes: ['', [Validators.required, Validators.min(1), Validators.max(12)]],
-      ano: ['', Validators.required],
-      hora: ['', [Validators.required, Validators.min(0), Validators.max(23)]],
-      minuto: ['', [Validators.required, Validators.min(0), Validators.max(59)]]
+      title: ['', Validators.required],
+      description: "",
+
+      startDay: ['', [Validators.required, Validators.min(1), Validators.max(31)]],
+      startMonth: ['', [Validators.required, Validators.min(1), Validators.max(12)]],
+      startYear: ['', Validators.required],
+      startHour: ['', [Validators.required, Validators.min(0), Validators.max(23)]],
+      startMinute: ['', [Validators.required, Validators.min(0), Validators.max(59)]],
+
+      endDay: ['', [Validators.required, Validators.min(1), Validators.max(31)]],
+      endMonth: ['', [Validators.required, Validators.min(1), Validators.max(12)]],
+      endYear: ['', Validators.required],
+      endHour: ['', [Validators.required, Validators.min(0), Validators.max(23)]],
+      endMinute: ['', [Validators.required, Validators.min(0), Validators.max(59)]]
     });
   }
 
@@ -45,17 +52,31 @@ export class EditTasks implements OnInit {
 
   preencherFormulario(task: Task) {
 
-    const partesData = task.data.split("/");
-    const partesHora = task.data.split(":");
+    const parseStartDateTime = task.startTime.split("T");
+
+    const parseStartDate = parseStartDateTime[0].split("-");
+    const parseStartTime = parseStartDateTime[1].split(":");
+
+    const parseEndDateTime = task.endTime.split("T");
+
+    const parseEndDate = parseEndDateTime[0].split("-");
+    const parseEndTime = parseEndDateTime[1].split(":");
+
 
     this.formulario.patchValue({
-      titulo: task.titulo,
-      detalhes: task.detalhes,
-      dia: parseInt(partesData[0]),
-      mes: parseInt(partesData[1]),
-      ano: parseInt(partesData[2]),
-      hora: parseInt(partesHora[0]),
-      minuto: parseInt(partesHora[1])
+      title: task.title,
+      description: task.description,
+      startDay: parseInt(parseStartDate[2]),
+      startMonth: parseInt(parseStartDate[1]),
+      startYear: parseInt(parseStartDate[0]),
+      startHour: parseInt(parseStartTime[0]),
+      startMinute: parseInt(parseStartTime[1]),
+
+      endDay: parseInt(parseEndDate[2]),
+      endMonth: parseInt(parseEndDate[1]),
+      endYear: parseInt(parseEndDate[0]),
+      endHour: parseInt(parseEndTime[0]),
+      endMinute: parseInt(parseEndTime[1])
     });
   }
 
@@ -64,15 +85,17 @@ export class EditTasks implements OnInit {
       const f = this.formulario.value;
       const pad = (valor: number) => valor.toString().padStart(2,"0");
 
-      const dataFormatada = `${pad(f.dia)}/${pad(f.mes)}/${pad(f.ano)}`;
-      const horaFormatada = `${pad(f.hora)}:${pad(f.minuto)}`;
+      const formattedStartDatetime = `${pad(f.startYear)}-${pad(f.startMonth)}-${pad(f.startDay)}T${pad(f.startHour)}:${pad(f.startMinute)}:00`;
+      const formattedEndDatetime = `${pad(f.endYear)}-${pad(f.endMonth)}-${pad(f.endDay)}T${pad(f.endHour)}:${pad(f.endMinute)}:00`;
+
+
 
       const tarefaConvertida = {
         id: this.idTarefa,
-        titulo: f.titulo,
-        detalhes: f.detalhes,
-        data: dataFormatada,
-        hora: horaFormatada,
+        title: f.title,
+        description:f.description,
+        startTime: formattedStartDatetime,
+        endTime: formattedEndDatetime,
       };
       alert("tarefa editada com sucesso!");
       this.service.editar(this.idTarefa,tarefaConvertida).subscribe(() => this.router.navigate(["/listTasks"]))
