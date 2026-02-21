@@ -110,6 +110,10 @@ public class TaskService {
         return task;
     }
 
+//    public void markTaskAsDone(Task Task) {
+//        task.setStatus(TaskStatus.DONE);
+//    }
+
 
     //função que valida se a tarefa está sendo sobreposta (provável feature)
 }

@@ -3,6 +3,7 @@ package com.example.Tarefator.controllers;
 import com.example.Tarefator.dtos.TaskDTO;
 import com.example.Tarefator.services.TaskService;
 import jakarta.validation.Valid;
+import org.apache.coyote.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +13,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/tasks")
+@CrossOrigin(origins = "http://localhost:4200")
 public class TaskController {
 
     final TaskService service;
@@ -40,9 +42,9 @@ public class TaskController {
         return ResponseEntity.ok(allTasks);
     }
 
-    @PutMapping
+    @PutMapping("/{id}")
     @Transactional
-    public ResponseEntity editTask (@RequestBody @Valid TaskDTO editedTask){
+    public ResponseEntity editTask (@RequestBody @Valid TaskDTO editedTask, @PathVariable UUID id){
         var updatedTask = service.editTask(editedTask);
     return ResponseEntity.ok(new TaskDTO(updatedTask));
     }
@@ -52,5 +54,11 @@ public class TaskController {
          service.cancelTask(id);
         return ResponseEntity.noContent().build();
     }
+
+//    @PostMapping
+//    public ResponseEntity markTaskAsDone (){
+//        service.markTaskAsDone();
+//        return ResponseEntity.ok();
+//    }
 
 }
