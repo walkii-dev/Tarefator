@@ -54,11 +54,4 @@ public class TaskController {
          service.cancelTask(id);
         return ResponseEntity.noContent().build();
     }
-
-//    @PostMapping
-//    public ResponseEntity markTaskAsDone (){
-//        service.markTaskAsDone();
-//        return ResponseEntity.ok();
-//    }
-
 }
