@@ -7,7 +7,7 @@ de crescimento pessoal, e acredito que o Tarefator pode ser o ideal para você!
 
 
 
-próximos passos do projeto:
+ ## Próximos passos do projeto:
 
 - validar entrada e saída de dados
 - adicionar logs
@@ -15,3 +15,5 @@ próximos passos do projeto:
 - criar status da tarefa
 - definir estratégia de dto ()
 -  e muito mais;
+
+"O Tarefator é a prova viva de que eu sei fazer algo. não precisa ser disruptivo, não agora."
