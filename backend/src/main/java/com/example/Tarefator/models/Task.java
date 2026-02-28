@@ -29,6 +29,9 @@ public class Task implements Serializable {
     @Column(nullable = false)
     private TaskStatus status;
 
+    @ManyToOne
+    @JoinColumn
+    private AppUser owner;
 
     public Task (String title, String description,LocalDateTime start, LocalDateTime finish){
         this.title = title;
@@ -91,6 +94,14 @@ public class Task implements Serializable {
 
     public void setStatus(TaskStatus status) {
         this.status = status;
+    }
+
+    public AppUser getOwner() {
+        return owner;
+    }
+
+    public void setOwner(AppUser owner) {
+        this.owner = owner;
     }
 
     @Override
