@@ -35,7 +35,9 @@ public class TaskController {
             var task = service.getSimpleTask(id);
         return ResponseEntity.ok(task);
     }
-
+/*
+    É Necessário adicionar paginação, a fim de pesquisar as tarefas por status (Done, Cancelled, Current)
+ */
     @GetMapping
     public ResponseEntity listAllTasks(){
         var allTasks = service.getAllTasks();
