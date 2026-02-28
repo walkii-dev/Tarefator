@@ -1,29 +1,34 @@
 package com.example.Tarefator.models;
 
+import com.example.Tarefator.dtos.AuthRegisterDTO;
 import jakarta.persistence.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
 @Entity
 @Table(name = "appusers")
-public class AppUser{
+public class AppUser implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false,name = "full_name")
     private String fullName;
 
     @Column(unique = true,nullable = false)
     private String email;
 
-    @Column(nullable = false)
+    @Column(nullable = false,length = 20)
     private String password;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column(nullable = false, name = "user_role")
     private AppUserRole userRole;
 
     @OneToMany(mappedBy = "owner")
@@ -53,9 +58,7 @@ public class AppUser{
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
-    }
+
 
     public void setPassword(String password) {
         this.password = password;
@@ -82,11 +85,53 @@ public class AppUser{
         this.fullName = fullName;
         this.email = email;
         this.password = password;
-        this.userRole = userRole;
+        this.userRole = AppUserRole.USER;
         this.userTasks = userTasks;
+    }
+    public AppUser (AuthRegisterDTO registerData){
+        this.fullName = registerData.fullname();
+        this.email = registerData.email();
+        this.password = registerData.password();
+        this.userRole = AppUserRole.USER;
+        this.userTasks = new ArrayList<>();
     }
 
     public AppUser() {
+        // empty constructor
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority("ROLE_"+userRole.name()));
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 
     @Override
