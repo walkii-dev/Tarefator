@@ -31,8 +31,7 @@ public class TaskService {
         this.repository = repository;
         this.mapper = mapper;
     }
-
-
+    
     Logger logger = LoggerFactory.getLogger(TaskService.class.getName());
 
     public Task createTask (TaskDTO taskData){

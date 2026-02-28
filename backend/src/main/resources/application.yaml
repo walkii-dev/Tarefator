@@ -11,3 +11,5 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
+  jackson:
+    time-zone: UTC

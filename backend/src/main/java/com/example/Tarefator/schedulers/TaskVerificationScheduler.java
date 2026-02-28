@@ -32,6 +32,7 @@ public class TaskVerificationScheduler {
         List<Task> allTasks = repository.findAll();
         for (Task t : allTasks){
             service.checkExpiredTasks(t);
+            // refatorar para somente as tarefas que estão correntes, diminuindo o número de queries.
         }
     }
 
