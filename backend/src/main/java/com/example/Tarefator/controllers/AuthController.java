@@ -2,6 +2,7 @@ package com.example.Tarefator.controllers;
 
 import com.example.Tarefator.dtos.AuthLoginDTO;
 import com.example.Tarefator.dtos.AuthRegisterDTO;
+import com.example.Tarefator.dtos.TokenDataDTO;
 import com.example.Tarefator.dtos.UserDataDTO;
 import com.example.Tarefator.services.AuthService;
 import jakarta.validation.Valid;
@@ -23,6 +24,12 @@ public class AuthController {
         this.authService = authService;
     }
 
+
+    @PostMapping("/login")
+    public ResponseEntity userLogon (@RequestBody @Valid AuthLoginDTO loginData){
+        var generatedToken = authService.userLogon(loginData);
+        return ResponseEntity.ok(new TokenDataDTO(generatedToken));
+    }
 
     @PostMapping("/register")
     @Transactional
