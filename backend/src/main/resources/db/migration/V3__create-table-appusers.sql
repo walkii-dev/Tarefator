@@ -1,8 +1,8 @@
 CREATE TABLE appusers(
 id BIGINT NOT NULL auto_increment,
-fullname VARCHAR(60) NOT NULL,
+full_name VARCHAR(60) NOT NULL,
 email VARCHAR(50) NOT NULL UNIQUE,
-password VARCHAR(20) NOT NULL,
-role VARCHAR (10) NOT NULL,
+password VARCHAR(70) NOT NULL,
+user_role VARCHAR (10) NOT NULL,
 PRIMARY KEY(id)
 );

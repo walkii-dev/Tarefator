@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -24,7 +25,7 @@ public class AppUser implements UserDetails {
     @Column(unique = true,nullable = false)
     private String email;
 
-    @Column(nullable = false,length = 20)
+    @Column(nullable = false)
     private String password;
 
     @Enumerated(EnumType.STRING)
@@ -88,10 +89,10 @@ public class AppUser implements UserDetails {
         this.userRole = AppUserRole.USER;
         this.userTasks = userTasks;
     }
-    public AppUser (AuthRegisterDTO registerData){
+    public AppUser (AuthRegisterDTO registerData, PasswordEncoder encoder){
         this.fullName = registerData.fullname();
         this.email = registerData.email();
-        this.password = registerData.password();
+        this.password = encoder.encode(registerData.password());
         this.userRole = AppUserRole.USER;
         this.userTasks = new ArrayList<>();
     }
