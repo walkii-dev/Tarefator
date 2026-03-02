@@ -37,6 +37,6 @@ public class AuthController {
         var user = authService.registerUser(registerData);
         var uri = uriBuilder.path("/users/{id}").buildAndExpand(user.getId()).toUri();
         // precisa ter um serviço de envio de e-mail aqui para fazer o login
-    return ResponseEntity.created(uri).body(user);
+    return ResponseEntity.created(uri).body(new UserDataDTO(user));
     }
 }

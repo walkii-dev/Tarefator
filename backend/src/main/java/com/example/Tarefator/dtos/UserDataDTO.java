@@ -5,11 +5,11 @@ import com.example.Tarefator.models.AppUserRole;
 
 import java.util.List;
 
-public record UserDataDTO(Long userId,
-                          String userFullName,
-                          String userEmail,
-                          AppUserRole userRole,
-                          List<TaskDTO> userTasks) {
+public record UserDataDTO(Long id,
+                          String fullname,
+                          String email,
+                          AppUserRole role,
+                          List<TaskDTO> tasks) {
     public UserDataDTO (AppUser user){
         this(
                 user.getId(),
