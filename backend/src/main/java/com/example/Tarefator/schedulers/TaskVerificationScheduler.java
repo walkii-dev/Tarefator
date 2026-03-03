@@ -27,9 +27,9 @@ public class TaskVerificationScheduler {
 
     @Scheduled(fixedRate = 60000)
     public void verifyExpiredTasks(){
-        logger.info("verificando tarefas que podem expirar.");
+        logger.info("checking expired tasks...");
 
-        List<Task> allTasks = repository.findAll();
+        List<Task> allTasks = repository.findAll(); // checar tarefas por status
         for (Task t : allTasks){
             service.checkExpiredTasks(t);
             // refatorar para somente as tarefas que estão correntes, diminuindo o número de queries.

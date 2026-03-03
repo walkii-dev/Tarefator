@@ -57,7 +57,7 @@ public class TaskService {
         logger.info("finding for all tasks saved in database.");
         var tasksList = repository.findAll();
         return tasksList;
-        //as tarefas precisam estar em ordem(ainda não sei) e não pode aparecer as tarefas que foram canceladas.
+        //as tarefas precisam estar em ordem(mais recentes primeiro) e não pode aparecer as tarefas que foram canceladas.
     }
 
     public Task editTask(TaskDTO editedTask) {
@@ -79,6 +79,7 @@ public class TaskService {
         //obs.: ela cancelada não pode aparecer na listagem de todas as tarefas
         return repository.save(task);
     }
+
     // função que valida se a data da tarefa informada está válida
     public boolean validateTaskTime(TaskDTO dto){
         return switch (dto) {

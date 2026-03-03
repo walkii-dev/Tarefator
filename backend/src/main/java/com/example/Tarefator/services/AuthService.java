@@ -28,7 +28,10 @@ public class AuthService implements UserDetailsService {
     private final AuthenticationManager authManager;
     private final TokenToolService tokenService;
     private final PasswordEncoder encoder;
-    public AuthService(AppUserRepository repository, @Lazy AuthenticationManager authManager, TokenToolService tokenService,
+
+    public AuthService(AppUserRepository repository,
+                       @Lazy AuthenticationManager authManager,
+                       TokenToolService tokenService,
                        PasswordEncoder encoder){
         this.repository = repository;
         this.authManager = authManager;
@@ -38,6 +41,7 @@ public class AuthService implements UserDetailsService {
 
     public AppUser registerUser (@Valid AuthRegisterDTO registerData){
             var newuser = new AppUser(registerData, encoder);
+            logger.info("adding new user on database...");
         try {
             repository.save(newuser);
         } catch (DataIntegrityViolationException exception) {
@@ -55,6 +59,7 @@ public class AuthService implements UserDetailsService {
         return tokenService.generateToken((AppUser) userAuthentication.getPrincipal());
     }
 
+    // encontrar algum fim pra isso...
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return repository.findByEmail(username);
