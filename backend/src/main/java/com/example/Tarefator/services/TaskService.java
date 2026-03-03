@@ -2,7 +2,6 @@ package com.example.Tarefator.services;
 
 import com.example.Tarefator.exceptions.InvalidTaskDataException;
 import com.example.Tarefator.exceptions.ResourceNotFoundException;
-import com.example.Tarefator.mappers.TaskMapper;
 import com.example.Tarefator.models.Task;
 import com.example.Tarefator.models.TaskStatus;
 import com.example.Tarefator.repositories.TaskRepository;
@@ -14,22 +13,18 @@ import com.example.Tarefator.dtos.TaskDTO;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.time.ZonedDateTime;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
 public class TaskService {
 
     final TaskRepository repository;
-    final TaskMapper mapper;
 
     final LocalDateTime actualServerTime = LocalDateTime.ofInstant(Instant.now(),ZoneId.systemDefault());
 
-    public TaskService (TaskRepository repository, TaskMapper mapper){
+    public TaskService (TaskRepository repository){
         this.repository = repository;
-        this.mapper = mapper;
     }
     
     Logger logger = LoggerFactory.getLogger(TaskService.class.getName());
@@ -55,7 +50,7 @@ public class TaskService {
         logger.info("finding a unique task saved on database.");
         var task = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("tarefa não encontrada no banco de dados."));
-        return mapper.toTaskDTO(task);
+        return new TaskDTO(task);
     }
 
     public List<Task> getAllTasks() {
