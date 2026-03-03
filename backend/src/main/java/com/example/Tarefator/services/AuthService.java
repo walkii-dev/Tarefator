@@ -7,7 +7,10 @@ import com.example.Tarefator.dtos.UserDataDTO;
 import com.example.Tarefator.models.AppUser;
 import com.example.Tarefator.repositories.AppUserRepository;
 import jakarta.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,6 +21,8 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class AuthService implements UserDetailsService {
+
+    Logger logger = LoggerFactory.getLogger(TaskService.class.getName());
 
     private final AppUserRepository repository;
     private final AuthenticationManager authManager;
@@ -31,22 +36,22 @@ public class AuthService implements UserDetailsService {
         this.encoder = encoder;
     }
 
-    // o servico verificara se há um usuário no banco de dados duplicado (mesmo email) e retornara erro se tiver
-    public AppUser registerUser (AuthRegisterDTO registerData){
-
-        var newuser = new AppUser(registerData,encoder);
-
+    public AppUser registerUser (@Valid AuthRegisterDTO registerData){
+            var newuser = new AppUser(registerData, encoder);
+        try {
             repository.save(newuser);
-
-        System.out.println("usuario salvo");
-
+        } catch (DataIntegrityViolationException exception) {
+            throw new DataIntegrityViolationException("this email is already registered.");
+        }
         return newuser;
 
     }
 
     public String userLogon(@Valid AuthLoginDTO loginData) {
+        logger.info("Logging user on app...");
         var userData = new UsernamePasswordAuthenticationToken(loginData.email(),loginData.password());
         var userAuthentication = authManager.authenticate(userData);
+        logger.info("generating token...");
         return tokenService.generateToken((AppUser) userAuthentication.getPrincipal());
     }
 
