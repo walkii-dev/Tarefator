@@ -1,1 +1,0 @@
-ALTER TABLE appusers DROP COLUMN role;

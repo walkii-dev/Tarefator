@@ -1,5 +1,6 @@
 package com.example.Tarefator.dtos;
 
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 
 public record AuthRegisterDTO(@NotNull(message = "user have to be a name.")
@@ -9,5 +10,6 @@ public record AuthRegisterDTO(@NotNull(message = "user have to be a name.")
                               String email, // futuramente deverá ter um regex de e-mail.
 
                               @NotNull(message = "password is required.")
+                              @Min(8)
                               String password)
 {}
