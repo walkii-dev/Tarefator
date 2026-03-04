@@ -10,6 +10,7 @@ import com.example.Tarefator.repositories.AppUserRepository;
 import com.example.Tarefator.repositories.TaskRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import com.example.Tarefator.dtos.TaskDTO;
@@ -36,7 +37,7 @@ public class TaskService {
 
     Logger logger = LoggerFactory.getLogger(TaskService.class.getName());
 
-    public Task createTask (TaskDTO taskData, UserDetails loggedUser){
+    public Task createTask (TaskDTO taskData, Authentication authentication){
         logger.info("mapping dto to entity and saving in database.");
         try{
             validateTaskTime(taskData);
@@ -45,10 +46,14 @@ public class TaskService {
             throw new InvalidTaskDataException(ex.getMessage());
         }
 
-        var getTokenOwner = (AppUser) userRepository.findByEmail(loggedUser.getUsername())
-                .orElseThrow(()-> new RuntimeException("user related to token not found."));
+        //verificar isso pois não está recuperando o login do token.
+        logger.info("looking for owner of task...");
+        String username = authentication.getCredentials().toString();
+        System.out.println(username);
+        AppUser owner = userRepository.findByEmail(username)
+                .orElseThrow(() -> new RuntimeException("Usuário do Token não encontrado."));
 
-        Task convertedTask = new Task(taskData,getTokenOwner);
+        Task convertedTask = new Task(taskData,owner);
 
         repository.save(convertedTask);
         return convertedTask;
