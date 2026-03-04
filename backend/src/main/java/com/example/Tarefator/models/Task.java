@@ -40,13 +40,12 @@ public class Task implements Serializable {
         this.endTime = finish;
         this.status = TaskStatus.CREATED;
     }
-    public Task(TaskDTO data){
+    public Task(TaskDTO data ,AppUser owner){
         this(data.getTitle(), data.getDescription(), data.getStartTime(),data.getEndTime());
+        this.owner = owner;
         this.setStatus(TaskStatus.CREATED);
     }
-    public Task(){
-        //empty constructor.
-    }
+    public Task(){ }
 
     public UUID getId() {
         return id;

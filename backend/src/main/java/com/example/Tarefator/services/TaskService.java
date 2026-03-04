@@ -1,12 +1,16 @@
 package com.example.Tarefator.services;
 
+import com.example.Tarefator.configurations.security.TokenToolService;
 import com.example.Tarefator.exceptions.InvalidTaskDataException;
 import com.example.Tarefator.exceptions.ResourceNotFoundException;
+import com.example.Tarefator.models.AppUser;
 import com.example.Tarefator.models.Task;
 import com.example.Tarefator.models.TaskStatus;
+import com.example.Tarefator.repositories.AppUserRepository;
 import com.example.Tarefator.repositories.TaskRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import com.example.Tarefator.dtos.TaskDTO;
 
@@ -21,25 +25,30 @@ public class TaskService {
 
     final TaskRepository repository;
 
+    final AppUserRepository userRepository;
+
+    public TaskService (TaskRepository repository, AppUserRepository userRepository){
+        this.repository = repository;
+        this.userRepository = userRepository;
+    }
+
     final LocalDateTime actualServerTime = LocalDateTime.ofInstant(Instant.now(),ZoneId.systemDefault());
 
-    public TaskService (TaskRepository repository){
-        this.repository = repository;
-    }
-    
     Logger logger = LoggerFactory.getLogger(TaskService.class.getName());
 
-    public Task createTask (TaskDTO taskData){
+    public Task createTask (TaskDTO taskData, UserDetails loggedUser){
         logger.info("mapping dto to entity and saving in database.");
-
         try{
             validateTaskTime(taskData);
             // futuramente aqui terá uma verificação de tarefa duplicata.
         } catch (InvalidTaskDataException ex) {
             throw new InvalidTaskDataException(ex.getMessage());
         }
-// valida os dados do dto antes de converter para entidade e salvar no banco de dados.
-        Task convertedTask = new Task(taskData);
+
+        var getTokenOwner = (AppUser) userRepository.findByEmail(loggedUser.getUsername())
+                .orElseThrow(()-> new RuntimeException("user related to token not found."));
+
+        Task convertedTask = new Task(taskData,getTokenOwner);
 
         repository.save(convertedTask);
         return convertedTask;

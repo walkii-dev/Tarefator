@@ -1,5 +1,6 @@
 package com.example.Tarefator.dtos;
 
+import com.example.Tarefator.models.AppUser;
 import com.example.Tarefator.models.Task;
 import com.example.Tarefator.models.TaskStatus;
 import jakarta.persistence.Column;
@@ -18,17 +19,19 @@ public class TaskDTO {
     private LocalDateTime startTime;
     private LocalDateTime endTime;
     private TaskStatus status;
+    private AppUser owner;
 
-    public TaskDTO(UUID id,String title, String description, LocalDateTime startTime, LocalDateTime endTime,TaskStatus status) {
+    public TaskDTO(UUID id,String title, String description, LocalDateTime startTime, LocalDateTime endTime,TaskStatus status,AppUser owner) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.startTime = startTime;
         this.endTime = endTime;
         this.status = status;
+        this.owner = owner;
     }
     public TaskDTO (Task task){
-        this(task.getId(), task.getTitle(), task.getDescription(),task.getStartTime(),task.getEndTime(),task.getStatus());
+        this(task.getId(), task.getTitle(), task.getDescription(),task.getStartTime(),task.getEndTime(),task.getStatus(),task.getOwner());
     }
 
     public TaskDTO() {
@@ -82,15 +85,23 @@ public class TaskDTO {
         this.status = status;
     }
 
+    public AppUser getOwner() {
+        return owner;
+    }
+
+    public void setOwner(AppUser owner) {
+        this.owner = owner;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         TaskDTO taskDTO = (TaskDTO) o;
-        return Objects.equals(getId(), taskDTO.getId()) && Objects.equals(getTitle(), taskDTO.getTitle()) && Objects.equals(getDescription(), taskDTO.getDescription()) && Objects.equals(getStartTime(), taskDTO.getStartTime()) && Objects.equals(getEndTime(), taskDTO.getEndTime()) && getStatus() == taskDTO.getStatus();
+        return Objects.equals(id, taskDTO.id) && Objects.equals(title, taskDTO.title) && Objects.equals(description, taskDTO.description) && Objects.equals(startTime, taskDTO.startTime) && Objects.equals(endTime, taskDTO.endTime) && status == taskDTO.status && Objects.equals(owner, taskDTO.owner);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getTitle(), getDescription(), getStartTime(), getEndTime(), getStatus());
+        return Objects.hash(id, title, description, startTime, endTime, status, owner);
     }
 }

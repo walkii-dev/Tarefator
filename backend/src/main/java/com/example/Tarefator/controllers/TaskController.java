@@ -5,6 +5,8 @@ import com.example.Tarefator.services.TaskService;
 import jakarta.validation.Valid;
 import org.apache.coyote.Response;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -24,8 +26,10 @@ public class TaskController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity saveTask (@RequestBody @Valid TaskDTO newTaskData, UriComponentsBuilder uriBuilder){
-        var taskCreated = service.createTask(newTaskData);
+    public ResponseEntity saveTask (@RequestBody @Valid TaskDTO newTaskData,
+                                    @AuthenticationPrincipal UserDetails loggedUser,
+                                    UriComponentsBuilder uriBuilder){
+        var taskCreated = service.createTask(newTaskData,loggedUser);
         var uri = uriBuilder.path("/tasks/{id}").buildAndExpand(taskCreated.getId()).toUri();
         return ResponseEntity.created(uri).body(new TaskDTO(taskCreated));
     }
