@@ -114,9 +114,13 @@ public class TaskService {
         return task;
     }
 
-//    public void markTaskAsDone(Task Task) {
-//        task.setStatus(TaskStatus.DONE);
-//    }
+    public TaskDTO markTaskAsDone(UUID id) {
+        var task = repository.findById(id).get();
+        task.setStatus(TaskStatus.DONE);
+        repository.save(task);
+        logger.info("tarefa "+task.getTitle()+" concluída!");
+        return new TaskDTO(task);
+    }
 
 
     //função que valida se a tarefa está sendo sobreposta (provável feature)

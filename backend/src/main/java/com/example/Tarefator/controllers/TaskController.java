@@ -55,6 +55,13 @@ public class TaskController {
     return ResponseEntity.ok(new TaskDTO(updatedTask));
     }
 
+    @PatchMapping("/{id}")
+    @Transactional
+    public ResponseEntity markAsDone (@PathVariable UUID id){
+        var task = service.markTaskAsDone(id);
+        return ResponseEntity.ok(task);
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity deleteTask(@PathVariable UUID id){
          service.cancelTask(id);
