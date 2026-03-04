@@ -48,7 +48,7 @@ public class TaskService {
 
         //verificar isso pois não está recuperando o login do token.
         logger.info("looking for owner of task...");
-        String username = authentication.getCredentials().toString();
+        var username = authentication.getName();
         System.out.println(username);
         AppUser owner = userRepository.findByEmail(username)
                 .orElseThrow(() -> new RuntimeException("Usuário do Token não encontrado."));

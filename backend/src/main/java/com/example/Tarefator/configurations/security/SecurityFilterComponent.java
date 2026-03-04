@@ -5,6 +5,7 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
@@ -31,9 +32,10 @@ public class SecurityFilterComponent extends OncePerRequestFilter {
 
         if (jwtToken != null) {
             var subject = tokenService.getTokenSubject(jwtToken);
-            var user = userRepository.findByEmail(subject);
+            var user = userRepository.findByEmail(subject)
+                    .orElseThrow(()->new RuntimeException("Usuário não encontrado."));
 
-            var authentication = new UsernamePasswordAuthenticationToken(user,null,user.get().getAuthorities());
+            var authentication = new UsernamePasswordAuthenticationToken(user,null,user.getAuthorities());
 
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
