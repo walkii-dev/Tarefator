@@ -59,9 +59,9 @@ public class AuthService implements UserDetailsService {
         return tokenService.generateToken((AppUser) userAuthentication.getPrincipal());
     }
 
-    // encontrar algum fim pra isso...
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return repository.findByEmail(username);
+        return repository.findByEmail(username)
+                .orElseThrow(()-> new UsernameNotFoundException("incorrect logon data."));
     }
 }

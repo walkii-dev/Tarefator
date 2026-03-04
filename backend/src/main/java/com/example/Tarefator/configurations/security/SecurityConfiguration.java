@@ -28,7 +28,8 @@ public class SecurityConfiguration {
                 .sessionManagement(sm -> sm
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(req -> { req
-                        .anyRequest().permitAll();
+                        .requestMatchers("/tasks/**").authenticated()
+                        .requestMatchers("/auth/**").permitAll();
                     //futuramente é pra colocar as requisições que precisam ser autenticadas corretamente.
                 }).addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
