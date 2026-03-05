@@ -3,7 +3,7 @@ import { TaskCard } from "../task-card/task-card";
 import { Router } from "@angular/router";
 import { AsyncPipe, CommonModule } from '@angular/common';
 import { Task } from "./../../task";
-import { TaskService } from '../../task-service';
+import { TaskService } from '../../../service/task-service';
 import { Observable } from 'rxjs';
 
 @Component({
