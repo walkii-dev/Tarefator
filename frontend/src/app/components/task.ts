@@ -4,5 +4,6 @@ export interface Task {
   description: string,
   startTime: string,
   endTime: string,
-  status?: string
+  status?: string,
+  ownwer?:string
 }
