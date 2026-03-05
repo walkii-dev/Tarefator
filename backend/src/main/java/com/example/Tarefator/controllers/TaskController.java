@@ -1,6 +1,7 @@
 package com.example.Tarefator.controllers;
 
 import com.example.Tarefator.dtos.TaskDTO;
+import com.example.Tarefator.dtos.TaskDataDTO;
 import com.example.Tarefator.services.TaskService;
 import jakarta.validation.Valid;
 import org.apache.coyote.Response;
@@ -32,7 +33,7 @@ public class TaskController {
                                     UriComponentsBuilder uriBuilder){
         var taskCreated = service.createTask(newTaskData,authentication);
         var uri = uriBuilder.path("/tasks/{id}").buildAndExpand(taskCreated.getId()).toUri();
-        return ResponseEntity.created(uri).body(new TaskDTO(taskCreated));
+        return ResponseEntity.created(uri).body(new TaskDataDTO(taskCreated));
     }
 
     @GetMapping("/{id}")

@@ -9,13 +9,13 @@ public record UserDataDTO(Long id,
                           String fullname,
                           String email,
                           AppUserRole role,
-                          List<TaskDTO> tasks) {
+                          List<SimpleTaskDTO> tasks) {
     public UserDataDTO (AppUser user){
         this(
                 user.getId(),
                 user.getFullName(),
                 user.getEmail(),
                 user.getUserRole(),
-                user.getUserTasks().stream().map(TaskDTO::new).toList());
+                user.getUserTasks().stream().map(SimpleTaskDTO::new).toList());
     }
 }
