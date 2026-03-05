@@ -3,11 +3,12 @@
     <img src="/Tarefator.png" alt="Tarefator Logo" class="logo-img"></a>
   </div>
   <div class="actions">
-    <span>Login</span>
-    |
-    <span>Cadastro</span>
+    @if (firstName$ | async; as firstName) {
+      <span class = "user-greeting">
+        Olá, {{ firstName }}! | <a (click)="logout()" tabindex="0" (keydown.enter)="logout()" class="logout-link">Sair</a>
+      </span>
+    } @else {
+      <span class="ff-inter guest-message">Seu gerenciador de tarefas.</span>
+    }
   </div>
-
-
-
 </header>

@@ -1,14 +1,13 @@
-/* Container principal do cabeçalho */
+
 .navbar {
   background-color: #0047AB;
   height: 64px;
   display: flex;
   align-items: center;
 
-  /* MUDANÇA 1: Centraliza todo o conteúdo (Logo + Busca + Perfil) */
+
   justify-content: center;
 
-  /* MUDANÇA 2: Define a distância fixa entre os elementos */
   gap: 20px;
 
   padding: 0 1.5rem;
@@ -16,7 +15,6 @@
   color: white;
 }
 
-/* Container da marca (Logo) */
 .navbar-brand {
   display: flex;
   align-items: center;
@@ -24,72 +22,30 @@
 }
 
 .logo-img {
-  max-height: 40px; /* Ajustei levemente para ficar harmônico */
+  max-height: 40px;
   width: auto;
   display: block;
 }
 
-/* MUDANÇA 3: Container da busca */
-.search-container {
-  /* Removemos o flex-grow: 1 que empurrava os itens para as pontas */
-  flex-grow: 0;
-
-  /* Definimos uma largura fixa ou base para a barra */
-  width: 600px;
-  max-width: 100%; /* Para telas menores não quebrar */
-
-  display: flex;
-  justify-content: center;
+.brand h1 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: bold;
+  cursor: pointer;
 }
 
-.search-wrapper {
-  position: relative;
-  width: 100%;
-  /* O max-width aqui é redundante se o pai já limita, mas mantém seguro */
-}
-
-/* Ícone de lupa */
-.search-icon {
-  position: absolute;
-  left: 15px;
-  top: 50%;
-  transform: translateY(-50%);
-  pointer-events: none;
-}
-
-/* Input da busca */
-.search-input {
-  width: 90%;
-  height: 40px;
-  border-radius: 20px;
-  border: none;
-  padding-left: 45px;
-  padding-right: 15px;
-  font-size: 0.95rem;
-  outline: none;
-  color: #333;
+.guest-message {
   font-family: 'Segoe UI', sans-serif;
 }
 
-.search-input::placeholder {
-  color: #888;
-}
-
-/* Ícone de perfil */
-.user-profile {
-  width: 36px;
-  height: 36px;
-  background-color: white;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.logout-link {
+  color: #ffffff;
+  text-decoration: none;
   cursor: pointer;
-  flex-shrink: 0;
 }
 
-.user-icon path {
-  fill: #0047AB;
+.logout-link:hover {
+  text-decoration: underline;
 }
 
 /* Responsividade (Opcional): Se a tela for muito pequena, diminui a busca */
