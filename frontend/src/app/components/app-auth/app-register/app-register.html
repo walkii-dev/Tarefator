@@ -1,0 +1,44 @@
+<div class="register-container">
+  <h1 class="register-title">Seja Bem-vindo !</h1>
+
+  <form (ngSubmit)="doRegister()" class="register-form">
+    <div class="input-group">
+      <input
+        type="text"
+        id="nome"
+        name="nome"
+        placeholder="Nome Completo"
+        [(ngModel)]="registerData.userFullName"
+        required
+      >
+    </div>
+
+    <div class="input-group">
+      <input
+        type="email"
+        id="email"
+        name="email"
+        placeholder="Endereço de e-mail"
+        [(ngModel)]="registerData.userEmail"
+        required
+      >
+    </div>
+
+    <div class="input-group">
+      <input
+        type="password"
+        id="senha"
+        name="senha"
+        placeholder="Senha"
+        [(ngModel)]="registerData.userPassword"
+        required
+      >
+    </div>
+
+    <button type="submit" class="register-button">Cadastrar</button>
+  </form>
+
+  <a href="#" (click)="$event.preventDefault(); backToLogin()" class="backToLogin">
+    Já tem uma conta? Voltar ao Login
+  </a>
+</div>
