@@ -1,6 +1,7 @@
 package com.example.Tarefator.schedulers;
 
 import com.example.Tarefator.models.Task;
+import com.example.Tarefator.models.TaskStatus;
 import com.example.Tarefator.repositories.TaskRepository;
 import com.example.Tarefator.services.TaskService;
 import org.slf4j.Logger;
@@ -29,10 +30,19 @@ public class TaskVerificationScheduler {
     public void verifyExpiredTasks(){
         logger.info("checking expired tasks...");
 
-        List<Task> allTasks = repository.findAll(); // checar tarefas por status
+        List<Task> allTasks = repository.findByStatus(TaskStatus.CURRENT); // checar tarefas por status
         for (Task t : allTasks){
             service.checkExpiredTasks(t);
-            // refatorar para somente as tarefas que estão correntes, diminuindo o número de queries.
+            // refatorar para somente as tarefas que estão em andamento, diminuindo o número de queries.
+        }
+    }
+    @Scheduled(fixedRate = 60001)
+    public void verifyCurrentTasks(){
+        logger.info("looking for current tasks...");
+
+        List<Task> allTasks = repository.findByStatus(TaskStatus.CREATED); // checar tarefas por status
+        for (Task t : allTasks){
+            service.checkCurrentTasks(t);
         }
     }
 

@@ -117,6 +117,16 @@ public class TaskService {
         }
         return task;
     }
+    // função que verifica as tarefas que foram criadas pra ver se estão em andamento.
+    public Task checkCurrentTasks(Task task){
+
+        if (task.getStartTime().isBefore(actualServerTime)){
+            task.setStatus(TaskStatus.CURRENT);
+            repository.save(task);
+        }
+        return task;
+    }
+
 
     public TaskDataDTO markTaskAsDone(UUID id) {
         var task = repository.findById(id).get();
