@@ -10,6 +10,10 @@ import com.example.Tarefator.repositories.AppUserRepository;
 import com.example.Tarefator.repositories.TaskRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import java.time.Instant;
@@ -64,10 +68,10 @@ public class TaskService {
         return new TaskDataDTO(task);
     }
 
-    public List<TaskDataDTO> getAllTasks() {
+    public Page<TaskDataDTO> getAllTasks(int page, int size) {
         logger.info("finding for all tasks saved in database.");
-        var tasksList = repository.findAll();
-        return tasksList.stream().map(TaskDataDTO::new).toList();
+        PageRequest pageRequest = PageRequest.of(page, size, Sort.Direction.ASC,"startTime");
+        return new PageImpl<>(repository.findAll(pageRequest).stream().map(TaskDataDTO::new).toList());
         //as tarefas precisam estar em ordem(mais recentes primeiro) e não pode aparecer as tarefas que foram canceladas.
     }
 
@@ -84,10 +88,8 @@ public class TaskService {
 
     public Task cancelTask(UUID id) {
         var task = repository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("tarefa não encontrada no banco de dados."));
+                .orElseThrow(() -> new ResourceNotFoundException("task not found in database. please verify the task code."));
         task.setStatus(TaskStatus.CANCELLED);
-        // depois de um certo tempo ela é eliminada de vez do banco de dados.
-        //obs.: ela cancelada não pode aparecer na listagem de todas as tarefas
         return repository.save(task);
     }
 
@@ -120,7 +122,7 @@ public class TaskService {
         var task = repository.findById(id).get();
         task.setStatus(TaskStatus.DONE);
         repository.save(task);
-        logger.info("tarefa "+task.getTitle()+" concluída!");
+        logger.info("task "+task.getId()+" is done!");
         return new TaskDataDTO(task);
     }
 
