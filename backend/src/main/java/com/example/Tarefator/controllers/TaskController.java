@@ -1,14 +1,10 @@
 package com.example.Tarefator.controllers;
 
-import com.example.Tarefator.dtos.TaskDTO;
 import com.example.Tarefator.dtos.TaskDataDTO;
 import com.example.Tarefator.services.TaskService;
 import jakarta.validation.Valid;
-import org.apache.coyote.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -28,7 +24,7 @@ public class TaskController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity saveTask (@RequestBody @Valid TaskDTO newTaskData,
+    public ResponseEntity saveTask (@RequestBody @Valid TaskDataDTO newTaskData,
                                     Authentication authentication,
                                     UriComponentsBuilder uriBuilder){
         var taskCreated = service.createTask(newTaskData,authentication);
@@ -52,9 +48,9 @@ public class TaskController {
 
     @PutMapping("/{id}")
     @Transactional
-    public ResponseEntity editTask (@RequestBody @Valid TaskDTO editedTask, @PathVariable UUID id){
+    public ResponseEntity editTask (@RequestBody @Valid TaskDataDTO editedTask, @PathVariable UUID id){
         var updatedTask = service.editTask(editedTask);
-    return ResponseEntity.ok(new TaskDTO(updatedTask));
+    return ResponseEntity.ok(new TaskDataDTO(updatedTask));
     }
 
     @PatchMapping("/{id}")

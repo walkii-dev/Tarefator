@@ -1,6 +1,6 @@
 package com.example.Tarefator.services;
 
-import com.example.Tarefator.configurations.security.TokenToolService;
+import com.example.Tarefator.dtos.TaskDataDTO;
 import com.example.Tarefator.exceptions.InvalidTaskDataException;
 import com.example.Tarefator.exceptions.ResourceNotFoundException;
 import com.example.Tarefator.models.AppUser;
@@ -11,10 +11,7 @@ import com.example.Tarefator.repositories.TaskRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
-import com.example.Tarefator.dtos.TaskDTO;
-
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -37,7 +34,7 @@ public class TaskService {
 
     Logger logger = LoggerFactory.getLogger(TaskService.class.getName());
 
-    public Task createTask (TaskDTO taskData, Authentication authentication){
+    public Task createTask (TaskDataDTO taskData, Authentication authentication){
         logger.info("mapping dto to entity and saving in database.");
         try{
             validateTaskTime(taskData);
@@ -60,27 +57,27 @@ public class TaskService {
     }
 
 
-    public TaskDTO getSimpleTask(UUID id) throws ResourceNotFoundException{
+    public TaskDataDTO getSimpleTask(UUID id) throws ResourceNotFoundException{
         logger.info("finding a unique task saved on database.");
         var task = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("tarefa não encontrada no banco de dados."));
-        return new TaskDTO(task);
+        return new TaskDataDTO(task);
     }
 
-    public List<Task> getAllTasks() {
+    public List<TaskDataDTO> getAllTasks() {
         logger.info("finding for all tasks saved in database.");
         var tasksList = repository.findAll();
-        return tasksList;
+        return tasksList.stream().map(TaskDataDTO::new).toList();
         //as tarefas precisam estar em ordem(mais recentes primeiro) e não pode aparecer as tarefas que foram canceladas.
     }
 
-    public Task editTask(TaskDTO editedTask) {
-        var taskToEdit = repository.getReferenceById(editedTask.getId());
+    public Task editTask(TaskDataDTO editedTask) {
+        var taskToEdit = repository.getReferenceById(editedTask.id());
         taskToEdit.setStatus(TaskStatus.EDITED);
-        taskToEdit.setTitle(editedTask.getTitle());
-        taskToEdit.setDescription(editedTask.getDescription());
-        taskToEdit.setStartTime(editedTask.getStartTime());
-        taskToEdit.setEndTime(editedTask.getEndTime());
+        taskToEdit.setTitle(editedTask.title());
+        taskToEdit.setDescription(editedTask.description());
+        taskToEdit.setStartTime(editedTask.startTime());
+        taskToEdit.setEndTime(editedTask.endTime());
         repository.save(taskToEdit);
         return taskToEdit;
     }
@@ -95,15 +92,15 @@ public class TaskService {
     }
 
     // função que valida se a data da tarefa informada está válida
-    public boolean validateTaskTime(TaskDTO dto){
+    public boolean validateTaskTime(TaskDataDTO dto){
         return switch (dto) {
-            case TaskDTO d when d.getStartTime().isAfter(d.getEndTime()) ->
+            case TaskDataDTO d when d.startTime().isAfter(d.endTime()) ->
                     throw new InvalidTaskDataException("a data de início não pode ser após a data de fim da tarefa.");
 
-            case TaskDTO d when d.getStartTime().isEqual(d.getEndTime()) ->
+            case TaskDataDTO d when d.startTime().isEqual(d.endTime()) ->
                     throw new InvalidTaskDataException("uma tarefa não pode começar e encerrar ao mesmo tempo.");
 
-            case TaskDTO d when d.getStartTime().isBefore(LocalDateTime.ofInstant(Instant.now(),ZoneId.systemDefault())) ->
+            case TaskDataDTO d when d.startTime().isBefore(LocalDateTime.ofInstant(Instant.now(),ZoneId.systemDefault())) ->
                     throw new InvalidTaskDataException("uma tarefa não pode começar no passado.");
             case null, default -> true;
         };
@@ -119,14 +116,14 @@ public class TaskService {
         return task;
     }
 
-    public TaskDTO markTaskAsDone(UUID id) {
+    public TaskDataDTO markTaskAsDone(UUID id) {
         var task = repository.findById(id).get();
         task.setStatus(TaskStatus.DONE);
         repository.save(task);
         logger.info("tarefa "+task.getTitle()+" concluída!");
-        return new TaskDTO(task);
+        return new TaskDataDTO(task);
     }
 
-
+    //um mesmo usuário não pode ter duas tarefas que estejam sendo feitas ao mesmo tempo.
     //função que valida se a tarefa está sendo sobreposta (provável feature)
 }

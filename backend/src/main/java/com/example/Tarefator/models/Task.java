@@ -1,6 +1,6 @@
 package com.example.Tarefator.models;
 
-import com.example.Tarefator.dtos.TaskDTO;
+import com.example.Tarefator.dtos.TaskDataDTO;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -40,8 +40,8 @@ public class Task implements Serializable {
         this.endTime = finish;
         this.status = TaskStatus.CREATED;
     }
-    public Task(TaskDTO data ,AppUser owner){
-        this(data.getTitle(), data.getDescription(), data.getStartTime(),data.getEndTime());
+    public Task(TaskDataDTO data , AppUser owner){
+        this(data.title(), data.description(), data.startTime(),data.endTime());
         this.owner = owner;
         this.setStatus(TaskStatus.CREATED);
     }

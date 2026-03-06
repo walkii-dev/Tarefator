@@ -1,6 +1,5 @@
 package com.example.Tarefator.unitytests.services;
 
-import com.example.Tarefator.dtos.TaskDTO;
 import com.example.Tarefator.exceptions.InvalidTaskDataException;
 import com.example.Tarefator.services.TaskService;
 import com.example.Tarefator.unitytests.mappers.mocks.MockTask;

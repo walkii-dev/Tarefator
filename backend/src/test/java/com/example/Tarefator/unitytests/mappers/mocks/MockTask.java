@@ -1,6 +1,5 @@
 package com.example.Tarefator.unitytests.mappers.mocks;
 
-import com.example.Tarefator.dtos.TaskDTO;
 import com.example.Tarefator.models.Task;
 
 import java.time.LocalDateTime;
