@@ -39,7 +39,13 @@ public class TaskController {
         return ResponseEntity.ok(task);
     }
 /*
-    É Necessário adicionar paginação, a fim de pesquisar as tarefas por status (Done, Cancelled, Current)
+    Paginação feita, exemplos de como pesquisar por tarefa, só fazer get para:
+    http://localhost:8080/tasks?status=DONE
+    http://localhost:8080/tasks?status=CREATED
+    http://localhost:8080/tasks?status=CREATED&status=EDITED(a fazer)
+    http://localhost:8080/tasks?status=CURRENT
+    http://localhost:8080/tasks?status=EXPIRED
+    http://localhost:8080/tasks?status=CANCELLED
  */
     @GetMapping
     public ResponseEntity listAllTasks(
