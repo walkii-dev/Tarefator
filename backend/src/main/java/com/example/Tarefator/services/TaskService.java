@@ -68,10 +68,10 @@ public class TaskService {
         return new TaskDataDTO(task);
     }
 
-    public Page<TaskDataDTO> getAllTasks(int page, int size) {
+    public Page<TaskDataDTO> getAllTasks(TaskStatus status, int page, int size) {
         logger.info("finding for all tasks saved in database.");
         PageRequest pageRequest = PageRequest.of(page, size, Sort.Direction.ASC,"startTime");
-        return new PageImpl<>(repository.findAll(pageRequest).stream().map(TaskDataDTO::new).toList());
+        return new PageImpl<>(repository.findByStatus(status,pageRequest).stream().map(TaskDataDTO::new).toList());
         //as tarefas precisam estar em ordem(mais recentes primeiro) e não pode aparecer as tarefas que foram canceladas.
     }
 

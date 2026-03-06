@@ -12,4 +12,5 @@ import java.util.UUID;
 public interface TaskRepository extends JpaRepository<Task, UUID> {
     Page<Task> findAll(Pageable pageable);
     List<Task> findByStatus(TaskStatus status);
+    Page<Task> findByStatus(TaskStatus status,Pageable pageable);
 }
