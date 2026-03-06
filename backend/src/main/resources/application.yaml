@@ -12,4 +12,4 @@ spring:
       ddl-auto: update
     show-sql: true
   jackson:
-    time-zone: UTC
+    time-zone: America/Sao_Paulo
