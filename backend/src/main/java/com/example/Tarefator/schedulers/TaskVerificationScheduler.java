@@ -26,7 +26,7 @@ public class TaskVerificationScheduler {
 
     Logger logger = LoggerFactory.getLogger(TaskVerificationScheduler.class.getName());
 
-    @Scheduled(fixedRate = 60000)
+    @Scheduled(fixedRate = 15010)
     public void verifyExpiredTasks(){
         logger.info("checking expired tasks...");
 
@@ -36,7 +36,7 @@ public class TaskVerificationScheduler {
             // refatorar para somente as tarefas que estão em andamento, diminuindo o número de queries.
         }
     }
-    @Scheduled(fixedRate = 60001)
+    @Scheduled(fixedRate = 15000)
     public void verifyCurrentTasks(){
         logger.info("looking for current tasks...");
 

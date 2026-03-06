@@ -1,6 +1,7 @@
 package com.example.Tarefator.controllers;
 
 import com.example.Tarefator.dtos.TaskDataDTO;
+import com.example.Tarefator.models.TaskStatus;
 import com.example.Tarefator.services.TaskService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;

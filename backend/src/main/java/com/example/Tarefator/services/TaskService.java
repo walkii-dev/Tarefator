@@ -16,6 +16,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
+
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -34,7 +36,7 @@ public class TaskService {
         this.userRepository = userRepository;
     }
 
-    final LocalDateTime actualServerTime = LocalDateTime.ofInstant(Instant.now(),ZoneId.systemDefault());
+    final LocalDateTime actualServerTime = LocalDateTime.ofInstant(Instant.now(),ZoneId.of("America/Sao_Paulo"));
 
     Logger logger = LoggerFactory.getLogger(TaskService.class.getName());
 
@@ -111,7 +113,7 @@ public class TaskService {
     //função que expira uma tarefa quando ela passa do tempo.
     public Task checkExpiredTasks(Task task){
 
-        if (task.getEndTime().isBefore(actualServerTime)){
+        if ( task.getEndTime().isEqual(actualServerTime)||task.getEndTime().isBefore(actualServerTime) ){
             task.setStatus(TaskStatus.EXPIRED);
             repository.save(task);
         }
@@ -120,7 +122,7 @@ public class TaskService {
     // função que verifica as tarefas que foram criadas pra ver se estão em andamento.
     public Task checkCurrentTasks(Task task){
 
-        if (task.getStartTime().isBefore(actualServerTime)){
+        if (task.getStartTime().isEqual(actualServerTime) || task.getStartTime().isBefore(actualServerTime)){
             task.setStatus(TaskStatus.CURRENT);
             repository.save(task);
         }
