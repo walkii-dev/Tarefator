@@ -1,7 +1,10 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
 import { Task } from './task';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
+import { PageResponse } from './page-response';
+
+
 
 @Injectable({
   providedIn: 'root',
@@ -34,6 +37,18 @@ export class TaskService {
   encontrarPorId(id: string): Observable<Task>{
     const url = `${this.API}/${id}`;
     return this.http.get<Task>(url);
+  }
+
+  listarPorFiltro(statusEnum: string, page: number = 0, size: number = 9): Observable<Task[]> {
+    let params = new HttpParams()
+      .set('page', page.toString())
+      .set('size', size.toString());
+    if (statusEnum !== "" ) {
+      params = params.set('status', statusEnum);
+    }
+    return this.http.get<PageResponse<Task>>(`${this.API}`, { params }).pipe(
+      map(response => response.content)
+    );
   }
 
 }
