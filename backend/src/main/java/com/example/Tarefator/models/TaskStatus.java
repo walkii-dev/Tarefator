@@ -7,5 +7,4 @@ public enum TaskStatus {
     DONE,
     EXPIRED,
     CANCELLED
-
 }
