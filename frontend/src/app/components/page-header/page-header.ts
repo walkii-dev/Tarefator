@@ -21,6 +21,10 @@ export class PageHeader {
     this.router.navigate(["/auth/login"]);
   }
 
+  get userIsLogged(): boolean {
+    return this.authService.isLoggedIn();
+  }
+
 
 
 }

@@ -1,5 +1,5 @@
 <div class="container-login">
-  <h1 class="title-login">Seja Bem-vindo novamente!</h1>
+  <h1 class="title-login">Seja bem-vindo novamente!</h1>
 
   <form (ngSubmit)="doLogin()" class="login-form">
     <div class="input-group">
@@ -8,7 +8,7 @@
         id="email"
         name="email"
         placeholder="E-mail"
-        [(ngModel)]="logonCredentials.userEmail"
+        [(ngModel)]="loginCredentials.userEmail"
         required
       >
     </div>
@@ -19,7 +19,7 @@
         id="senha"
         name="senha"
         placeholder="Senha"
-        [(ngModel)]="logonCredentials.userPassword"
+        [(ngModel)]="loginCredentials.userPassword"
         required
       >
     </div>
@@ -27,7 +27,7 @@
     <button type="submit" class="login-button">Login</button>
   </form>
 
-  <a  class="recover-link">
+  <a  class="recover-link" (click)="goToRegister()">
     Novo por aqui? Cadastre-se!
   </a>
 </div>

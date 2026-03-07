@@ -1,6 +1,13 @@
 <header class="navbar">
-  <div class="navbar-brand"><a routerLink="/listTasks">
-    <img src="/Tarefator.png" alt="Tarefator Logo" class="logo-img"></a>
+  <div class="navbar-brand">
+    @if (userIsLogged) {
+      <a routerLink="/listTasks">
+        <img src="/Tarefator.png" alt="Tarefator Logo" class="logo-img">
+      </a>
+    } @else {
+      <img src="/Tarefator.png" alt="Tarefator Logo" class="logo-img">
+    }
+
   </div>
   <div class="actions">
     @if (firstName$ | async; as firstName) {
