@@ -4,7 +4,7 @@ import { Router } from "@angular/router";
 import { AsyncPipe, CommonModule } from '@angular/common';
 import { Task } from "./../../task";
 import { TaskService } from '../../../service/task-service';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-tasks-list',
@@ -16,11 +16,35 @@ import { Observable } from 'rxjs';
 })
 export class TasksList {
 
+  currentFilterLabel = "Todas";
+
+  private readonly statusMap: Record<string,string> = {
+    'Todas': '',
+    'Concluídas': 'DONE',
+    'Pendente': 'CURRENT',
+    'Canceladas': 'CANCELLED'
+  }
+
+  private statusSubject = new BehaviorSubject<string>('');
+
+  tasksList$: Observable<Task[]> = this.statusSubject.pipe(
+    switchMap(statusEnum => {
+      return this.service.listarPorFiltro(statusEnum);
+    })
+  );
+
+  setFilter(label: string) {
+    this.currentFilterLabel = label;
+    const enumValue = this.statusMap[label]; // Traduz o clique para o formato do Back-end
+    this.statusSubject.next(enumValue);
+  }
+
+
   constructor(private service:TaskService){
     this.tasksList$ = this.service.listar();
    }
 
-  tasksList$: Observable<Task[]>;
+
 
   private router = inject(Router);
 

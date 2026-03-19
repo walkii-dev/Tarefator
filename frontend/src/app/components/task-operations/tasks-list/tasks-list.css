@@ -56,3 +56,35 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* --- Menu de Filtros --- */
+.filter-menu {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 30px;
+  flex-wrap: wrap; /* Para não quebrar o layout em celulares */
+}
+
+.filter-btn {
+  padding: 8px 24px;
+  border-radius: 8px; /* Deixa o botão com formato de pílula */
+  border: 1px solid #0047AB; /* Mesmo azul do seu botão principal */
+  background-color: transparent;
+  color: #0047AB;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* Estado Ativo do botão */
+.filter-btn.active {
+  background-color: #0047AB;
+  color: white;
+}
+
+/* Efeito ao passar o mouse em um botão inativo */
+.filter-btn:hover:not(.active) {
+  background-color: #e6f0fa; /* Um fundo azul bem clarinho */
+}

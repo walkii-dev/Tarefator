@@ -1,6 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { AuthService } from '../../../service/auth-service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -10,17 +12,42 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './app-login.css',
 })
 export class AppLogin {
-  logonCredentials = {
-    userEmail: '',
-    userPassword: ''
-  };
+
+  loginCredentials = {
+    userEmail: "",
+    userPassword: ""
+  }
+
+  errorMessage: string = "";
+
+
+  private authService = inject(AuthService);
+  private router = inject(Router);
 
   doLogin(): void {
-    console.log('Dados submetidos:', this.logonCredentials);
+    if (!this.loginCredentials.userEmail || !this.loginCredentials.userPassword) {
+      this.errorMessage="não há dados de login e senha.";
+      return;
+    }
+
+    const payload = {
+      email: this.loginCredentials.userEmail,
+      password: this.loginCredentials.userPassword
+    };
+
+      this.authService.logon(payload).subscribe({
+        next: () => {
+          console.log("Login feito!");
+          this.router.navigate(["/listTasks"]);
+        },
+        error: (error) => {
+          console.log("Erro ao logar, verifique credenciais",error);
+          this.errorMessage = "Credenciais inválidas.";
+        }
+      });
   }
 
-  recoverPassword(): void {
-    console.log('Ação: Recuperar senha');
+  goToRegister(){
+    this.router.navigate(["auth/register"]);
   }
-
 }
