@@ -16,12 +16,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -52,7 +50,6 @@ public class TaskService {
         //verificar isso pois não está recuperando o login do token.
         logger.info("looking for owner of task...");
         var username = authentication.getName();
-        System.out.println(username);
         AppUser owner = userRepository.findByEmail(username)
                 .orElseThrow(() -> new RuntimeException("Usuário do Token não encontrado."));
 

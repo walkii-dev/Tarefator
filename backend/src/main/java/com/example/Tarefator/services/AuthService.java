@@ -3,7 +3,6 @@ package com.example.Tarefator.services;
 import com.example.Tarefator.configurations.security.TokenToolService;
 import com.example.Tarefator.dtos.AuthLoginDTO;
 import com.example.Tarefator.dtos.AuthRegisterDTO;
-import com.example.Tarefator.dtos.UserDataDTO;
 import com.example.Tarefator.models.AppUser;
 import com.example.Tarefator.repositories.AppUserRepository;
 import jakarta.validation.Valid;

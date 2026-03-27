@@ -1,6 +1,6 @@
 package com.example.Tarefator.dtos;
 
-import jakarta.validation.constraints.Min;
+
 import jakarta.validation.constraints.NotNull;
 
 public record AuthRegisterDTO(@NotNull(message = "user have to be a name.")
