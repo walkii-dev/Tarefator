@@ -44,14 +44,12 @@ Tarefator/
 ```
 
 ## Próximas melhorias
-- implantar sistema de login e cadastro
 - filtrar tarefas pelo tipo (concluídas)
 - melhorias visuais no tipo de tarefa
 - marcar tarefas como concluídas
 - implementar docker
 - possívelmente subir a aplicação para a nuvem
 - colocar variáveis de ambiente e produção
-- sincronizar horário do servidor com horário atual
 - validação imediata de tarefa (na edição ou cadastro)
 
 
