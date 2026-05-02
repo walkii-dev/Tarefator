@@ -6,7 +6,6 @@ import com.example.Tarefator.services.TaskService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -24,7 +23,6 @@ public class TaskController {
     }
 
     @PostMapping
-    @Transactional
     public ResponseEntity saveTask (@RequestBody @Valid TaskDataDTO newTaskData,
                                     Authentication authentication,
                                     UriComponentsBuilder uriBuilder){
@@ -57,14 +55,12 @@ public class TaskController {
     }
 
     @PutMapping("/{id}")
-    @Transactional
     public ResponseEntity editTask (@RequestBody @Valid TaskDataDTO editedTask, @PathVariable UUID id){
         var updatedTask = service.editTask(editedTask);
     return ResponseEntity.ok(new TaskDataDTO(updatedTask));
     }
 
     @PatchMapping("/{id}")
-    @Transactional
     public ResponseEntity markAsDone (@PathVariable UUID id){
         var task = service.markTaskAsDone(id);
         return ResponseEntity.ok(task);

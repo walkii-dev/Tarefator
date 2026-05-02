@@ -5,6 +5,8 @@ import com.example.Tarefator.dtos.AuthLoginDTO;
 import com.example.Tarefator.dtos.AuthRegisterDTO;
 import com.example.Tarefator.models.AppUser;
 import com.example.Tarefator.repositories.AppUserRepository;
+
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,7 +39,7 @@ public class AuthService implements UserDetailsService {
         this.tokenService = tokenService;
         this.encoder = encoder;
     }
-
+    @Transactional
     public AppUser registerUser (@Valid AuthRegisterDTO registerData){
             var newuser = new AppUser(registerData, encoder);
             logger.info("adding new user on database...");
