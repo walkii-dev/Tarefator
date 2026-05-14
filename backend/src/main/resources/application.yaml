@@ -3,9 +3,9 @@ spring:
     name: Tarefator
   datasource:
       driver-class-name: com.mysql.cj.jdbc.Driver
-      url: jdbc:mysql://localhost:3306/tarefator_db?useTimezone=true&serverTimezone=UTC
-      username: root
-      password: 3158
+      url: ${TAREFATOR_DATABASE_URL}
+      username: ${TAREFATOR_DATABASE_USERNAME}
+      password: ${TAREFATOR_DATABASE_PASSWORD}
   jpa:
     open-in-view: true
     hibernate:
