@@ -20,7 +20,6 @@ public class AuthController {
         this.authService = authService;
     }
 
-
     @PostMapping("/login")
     public ResponseEntity<TokenDataDTO> userLogon (@RequestBody @Valid AuthLoginDTO loginData){
         var generatedToken = authService.userLogon(loginData);
@@ -28,10 +27,11 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<UserDataDTO> registerNewUser (@RequestBody @Valid AuthRegisterDTO registerData, UriComponentsBuilder uriBuilder){
+    public ResponseEntity<UserDataDTO> registerNewUser (@RequestBody @Valid AuthRegisterDTO registerData,
+                                                                            UriComponentsBuilder uriBuilder){
         var user = authService.registerUser(registerData);
         var uri = uriBuilder.path("/users/{id}").buildAndExpand(user.getId()).toUri();
-        // precisa ter um serviço de envio de e-mail aqui para fazer o login
+        // precisa ter um serviço de envio de e-mail aqui para confirmar o cadastro do usuário.
         return ResponseEntity.created(uri).body(new UserDataDTO(user));
     }
 }

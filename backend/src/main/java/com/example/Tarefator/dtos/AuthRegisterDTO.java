@@ -12,3 +12,7 @@ public record AuthRegisterDTO(@NotNull(message = "user have to be a name.")
                               @NotNull(message = "password is required.")
                               String password)
 {}
+
+/*
+ futuramente, no frontend, o cadastro terá confirmação de email e senha.
+ */
